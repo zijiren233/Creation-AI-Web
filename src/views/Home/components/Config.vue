@@ -99,6 +99,7 @@ async function Create() {
               3000
             );
             getDraw();
+            return;
           } else {
             NotificationStore.error(error.response.data.err, 3000);
           }
