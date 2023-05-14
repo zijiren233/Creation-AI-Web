@@ -29,19 +29,17 @@ interface Auth {
   password: string;
 }
 
-export function drawPost(config: string, auth: Auth) {
+export function drawPost(config: string) {
   return httpInstanse({
     url: "/draw",
     method: "post",
     data: config,
-    auth,
     headers: { "Content-Type": "application/json" },
   });
 }
 
-export function drawGet(auth: Auth) {
+export function drawGet() {
   return httpInstanse({
     url: "/draw",
-    auth,
   });
 }

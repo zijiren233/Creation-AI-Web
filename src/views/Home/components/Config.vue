@@ -79,10 +79,7 @@ async function Create() {
   formRef.value?.validate((valid) => {
     if (valid) {
       ConfigStore.loading = true;
-      drawPost(JSON.stringify(ConfigStore.config), {
-        username: AuthStore.auth.username.toString(),
-        password: AuthStore.auth.password,
-      })
+      drawPost(JSON.stringify(ConfigStore.config))
         .then((res) => {
           ConfigStore.config.tag = res.data.config.tag;
           ConfigStore.config.uc = res.data.config.uc;
@@ -121,7 +118,7 @@ async function Create() {
 const emits = defineEmits(["pushImg"]);
 
 async function getDraw() {
-  const res = await drawGet(AuthStore.auth);
+  const res = await drawGet();
   if (res.err === "re long polling") {
     getDraw();
     return;

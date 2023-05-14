@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/stores/auth";
 import axios from "axios";
 
 const httpInstanse = axios.create({
@@ -15,6 +16,11 @@ declare module "axios" {
 
 httpInstanse.interceptors.request.use(
     (config) => {
+        const authStore = useAuthStore()
+        const token = btoa(`${authStore.auth.username}:${authStore.auth.password}`)
+        if (token) {
+            config.headers.Authorization = `Basic ${token}`
+        }
         return config;
     },
     (e) => Promise.reject(e)

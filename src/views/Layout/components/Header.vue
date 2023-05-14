@@ -11,22 +11,26 @@ const NotificationStore = useNotificationStore();
     <el-menu-item index="/waterfall">Waterfall</el-menu-item>
 
     <div class="flex-grow" />
-    <el-menu-item
-      index="/login"
-      v-show="AuthStore.auth.password === '' || AuthStore.auth.username === ''"
-      >Log in</el-menu-item
+    <template
+      v-if="AuthStore.auth.password === '' || AuthStore.auth.username === ''"
     >
-    <el-menu-item
-      index="/login"
-      @click="
-        () => {
-          AuthStore.remove();
-          NotificationStore.success('Sign out success!', 3000);
-        }
-      "
-      v-show="AuthStore.auth.password !== '' && AuthStore.auth.username !== ''"
-      >Sign out</el-menu-item
-    >
+      <el-menu-item index="/login">Log in</el-menu-item>
+    </template>
+    <template v-else>
+      <el-menu-item
+        index="/login"
+        @click="
+          () => {
+            AuthStore.remove();
+            NotificationStore.success('Sign out success!', 3000);
+          }
+        "
+        v-show="
+          AuthStore.auth.password !== '' && AuthStore.auth.username !== ''
+        "
+        >Sign out</el-menu-item
+      >
+    </template>
   </el-menu>
 </template>
 
