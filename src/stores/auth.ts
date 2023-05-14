@@ -11,18 +11,18 @@ export const useAuthStore = defineStore("auth", () => {
     username: '',
     password: ''
   });
-  function save(username: string, password: string) {
+  function login(username: string, password: string) {
     auth.value.username = username;
     auth.value.password = password;
   }
-  function remove() {
+  function signout() {
     auth.value.username = ""
     auth.value.password = ""
   }
   return {
     auth,
-    save,
-    remove
+    login,
+    signout
   };
 }, {
   persist: true

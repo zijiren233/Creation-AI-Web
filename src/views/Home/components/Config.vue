@@ -93,13 +93,6 @@ async function Create() {
           getDraw();
         })
         .catch((error) => {
-          console.log(error);
-
-          if (error.response.status === 401) {
-            NotificationStore.error("Auth Error", 3000);
-            ConfigStore.loading = false;
-            return;
-          }
           if (error.response.data.err === "task already exists") {
             NotificationStore.info(
               "Fetching the results of the previous task. . .",
@@ -108,8 +101,8 @@ async function Create() {
             getDraw();
           } else {
             NotificationStore.error(error.response.data.err, 3000);
-            ConfigStore.loading = false;
           }
+          ConfigStore.loading = false;
         });
     }
   });

@@ -2,7 +2,7 @@
 import { ref, reactive, onMounted } from "vue";
 import { useAuthStore } from "@/stores/auth.js";
 import { useNotificationStore } from "@/stores/notification.js";
-import { useRouter } from "vue-router";
+import router from "@/router";
 import { ElForm } from "element-plus";
 import type { FormInstance, FormRules } from "element-plus";
 const NotificationStore = useNotificationStore();
@@ -11,7 +11,6 @@ const userAuth = reactive({
   username: <string>"",
   password: <string>"",
 });
-const router = useRouter();
 
 const rules = reactive<FormRules>({
   username: [
@@ -29,7 +28,7 @@ const formRef = ref<FormInstance>();
 function Save() {
   formRef.value?.validate((valid: boolean) => {
     if (valid) {
-      AuthStore.save(userAuth.username, userAuth.password);
+      AuthStore.login(userAuth.username, userAuth.password);
       NotificationStore.success("Save Success!", 3000);
       router.replace({
         name: "home",

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, reactive } from "vue";
 import { search } from "@/apis/images";
-import { onBeforeRouteUpdate, useRouter, useRoute } from "vue-router";
+import router from "@/router";
+import { onBeforeRouteUpdate } from "vue-router";
 import { stringToNumber } from "@/utile/utils";
 let now = new Date().getTime();
 const datas = ref<
@@ -13,8 +14,8 @@ const datas = ref<
     cfg: string;
   }[]
 >([]);
-const router = useRouter();
-const route = useRoute();
+
+const route = router.currentRoute.value;
 
 const input = ref<string>(route.query.tag?.toString() || "");
 const currentPage = ref<number>(stringToNumber(route.query.page?.toString()));

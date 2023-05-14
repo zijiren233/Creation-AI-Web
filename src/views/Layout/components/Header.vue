@@ -21,7 +21,7 @@ const NotificationStore = useNotificationStore();
         index="/login"
         @click="
           () => {
-            AuthStore.remove();
+            AuthStore.signout();
             NotificationStore.success('Sign out success!', 3000);
           }
         "
