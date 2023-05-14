@@ -68,9 +68,9 @@ function changeTag() {
         width: '230px',
         'margin-right': '20px',
       }"
-      placeholder="Select tag"
+      placeholder="Search tag"
     />
-    <el-button type="primary" @click="changeTag" round>Sraech</el-button>
+    <el-button type="primary" @click="changeTag" round>Search</el-button>
   </el-row>
   <div class="demo-image">
     <div v-for="(item, index) in datas" :key="item.id" class="block">
