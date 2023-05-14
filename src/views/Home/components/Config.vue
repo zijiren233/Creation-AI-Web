@@ -75,7 +75,12 @@ const rules: FormRules = {
 
 const formRef = ref<FormInstance>();
 
+const status = ref<number>(0);
+const code = ref<string>("success");
+
 async function Create() {
+  status.value = 0.01;
+  code.value = "success";
   formRef.value?.validate((valid) => {
     if (valid) {
       ConfigStore.loading = true;
@@ -100,9 +105,9 @@ async function Create() {
             );
             getDraw();
             return;
-          } else {
-            NotificationStore.error(error.response.data.err, 3000);
           }
+          code.value = "exception";
+          NotificationStore.error(error.response.data.err, 3000);
           ConfigStore.loading = false;
         });
     }
@@ -114,11 +119,14 @@ const emits = defineEmits(["pushImg"]);
 async function getDraw() {
   const res = await drawGet();
   if (res.err === "re long polling") {
+    status.value = res.data;
     getDraw();
     return;
   } else if (res.err !== undefined) {
+    code.value = "exception";
     NotificationStore.error(res.err, 3000);
   } else {
+    status.value = 1;
     emits("pushImg", res.data);
     NotificationStore.success("Success", 3000);
   }
@@ -127,6 +135,18 @@ async function getDraw() {
 </script>
 
 <template>
+  <div class="demo-progress">
+    <el-progress
+      v-show="status"
+      :text-inside="true"
+      :stroke-width="24"
+      :class="{
+        status: code,
+      }"
+      :style="{ 'margin-bottom': '20px' }"
+      :percentage="status * 100"
+    />
+  </div>
   <el-form
     ref="formRef"
     :model="ConfigStore.config"
