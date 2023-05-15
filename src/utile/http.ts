@@ -2,6 +2,7 @@ import { useAuthStore } from "@/stores/auth";
 import { useNotificationStore } from "@/stores/notification";
 import axios from "axios";
 import router from '@/router'
+import { Buffer } from "buffer";
 
 const httpInstanse = axios.create({
     baseURL: "https://creation.pyhdxy.top/api",
@@ -19,7 +20,10 @@ declare module "axios" {
 httpInstanse.interceptors.request.use(
     (config) => {
         const authStore = useAuthStore()
-        const token = btoa(`${authStore.auth.username}:${authStore.auth.password}`)
+        const token = Buffer.from(
+            `${authStore.auth.username}:${authStore.auth.password}`,
+            "utf-8"
+        ).toString("base64")
         if (token) {
             config.headers.Authorization = `Basic ${token}`
         }
@@ -36,7 +40,7 @@ httpInstanse.interceptors.response.use(
             NotificationStore.error("Auth Error", 3000)
             const authStore = useAuthStore()
             authStore.signout()
-            router.push({
+            router.replace({
                 name: "login"
             })
         }

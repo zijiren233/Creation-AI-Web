@@ -29,6 +29,12 @@ const router = createRouter({
           component: () => import("@/views/Waterfall/index.vue"),
           meta: { title: 'Creation AI - Waterfall' },
         },
+        {
+          path: "docs",
+          name: "docs",
+          component: () => import("@/views/Docs/index.vue"),
+          meta: { title: 'Creation AI - Docs' },
+        },
       ],
     },
   ],

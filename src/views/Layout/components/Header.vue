@@ -9,6 +9,7 @@ const NotificationStore = useNotificationStore();
   <el-menu class="el-menu-demo" mode="horizontal" unique-opened router>
     <el-menu-item index="/">Home</el-menu-item>
     <el-menu-item index="/waterfall">Waterfall</el-menu-item>
+    <el-menu-item index="/docs">Docs</el-menu-item>
 
     <div class="flex-grow" />
     <template
