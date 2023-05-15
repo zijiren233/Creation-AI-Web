@@ -17,16 +17,12 @@ const props = defineProps<{
         :preview-src-list="imgData"
         :initial-index="index"
         hide-on-click-modal
-      >
-      </el-image>
+      ></el-image>
     </el-carousel-item>
     <el-carousel-item v-if="imgData.length === 0">
       <el-skeleton style="width: 100%">
         <template #template>
-          <el-skeleton-item
-            variant="image"
-            style="width: 100%; height: 400px"
-          />
+          <el-skeleton-item variant="image" style="width: 100%; height: 400px" />
         </template>
       </el-skeleton>
     </el-carousel-item>
