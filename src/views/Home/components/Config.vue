@@ -79,10 +79,10 @@ const status = ref<number>(0);
 const code = ref<string>("success");
 
 async function Create() {
-  status.value = 0.01;
-  code.value = "success";
   formRef.value?.validate((valid) => {
     if (valid) {
+      status.value = 0.01;
+      code.value = "success";
       ConfigStore.loading = true;
       drawPost(JSON.stringify(ConfigStore.config))
         .then((res) => {
