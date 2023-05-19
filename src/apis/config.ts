@@ -24,11 +24,6 @@ export function getExtraModelsWithGroup(group: string) {
   });
 }
 
-interface Auth {
-  username: string;
-  password: string;
-}
-
 export function drawPost(config: string) {
   return httpInstanse({
     url: "/draw",

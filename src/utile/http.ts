@@ -20,11 +20,11 @@ declare module "axios" {
 httpInstanse.interceptors.request.use(
     (config) => {
         const authStore = useAuthStore()
-        const token = Buffer.from(
-            `${authStore.auth.username}:${authStore.auth.password}`,
-            "utf-8"
-        ).toString("base64")
-        if (token) {
+        if (authStore.auth.username && authStore.auth.password) {
+            const token = Buffer.from(
+                `${authStore.auth.username}:${authStore.auth.password}`,
+                "utf-8"
+            ).toString("base64")
             config.headers.Authorization = `Basic ${token}`
         }
         return config;
