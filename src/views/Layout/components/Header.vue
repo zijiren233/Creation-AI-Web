@@ -6,26 +6,20 @@ const NotificationStore = useNotificationStore();
 </script>
 
 <template>
-  <el-menu
-    class="el-menu-demo"
-    mode="horizontal"
-    unique-opened
-    router
-    :ellipsis="false"
-  >
+  <el-menu class="el-menu-demo" mode="horizontal" unique-opened router :ellipsis="false">
     <el-menu-item index="/">Home</el-menu-item>
     <el-menu-item index="/waterfall">Waterfall</el-menu-item>
     <el-menu-item index="/docs">Docs</el-menu-item>
 
     <div class="flex-grow" />
-    <template
-      v-if="AuthStore.auth.password === '' || AuthStore.auth.username === ''"
-    >
-      <el-menu-item index="/login">Log in</el-menu-item>
-
-      <a target="_blank" href="https://t.me/NovelAIDraw_bot?start=start"
-        ><el-menu-item>Sign up</el-menu-item></a
-      >
+    <template v-if="AuthStore.auth.password === '' || AuthStore.auth.username === ''">
+      <el-sub-menu>
+        <template #title>Auth</template>
+        <el-menu-item index="/login">Log in</el-menu-item>
+        <a target="_blank" href="https://t.me/NovelAIDraw_bot?start=start">
+          <el-menu-item>Sign up</el-menu-item>
+        </a>
+      </el-sub-menu>
     </template>
     <template v-else>
       <el-menu-item
@@ -39,8 +33,7 @@ const NotificationStore = useNotificationStore();
         v-show="
           AuthStore.auth.password !== '' && AuthStore.auth.username !== ''
         "
-        >Sign out</el-menu-item
-      >
+      >Sign out</el-menu-item>
     </template>
   </el-menu>
 </template>
