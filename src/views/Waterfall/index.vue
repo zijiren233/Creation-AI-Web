@@ -31,7 +31,7 @@ onMounted(() => {
     stringToNumber(route.query.page?.toString())
   );
 });
-onBeforeRouteUpdate((to) => {
+onBeforeRouteUpdate(to => {
   input.value = to.query.tag?.toString()!;
   currentPage.value = stringToNumber(to.query.page?.toString());
   load(to.query.tag?.toString()!, stringToNumber(to.query.page?.toString()!));
@@ -43,8 +43,8 @@ function changePage() {
     path: "/waterfall",
     query: {
       tag: route.query.tag?.toString()!,
-      page: currentPage.value,
-    },
+      page: currentPage.value
+    }
   });
 }
 function changeTag() {
@@ -53,8 +53,8 @@ function changeTag() {
     path: "/waterfall",
     query: {
       tag: input.value,
-      page: 1,
-    },
+      page: 1
+    }
   });
 }
 </script>
@@ -76,16 +76,14 @@ function changeTag() {
     <div v-for="(item, index) in datas" :key="item.id" class="block">
       <el-image
         :src="item.image"
-        style="width: 230px"
+        class="img"
         :preview-src-list="datas.map((item) => item.image)"
         :initial-index="index"
         fit="contain"
         loading="lazy"
         preview-teleported
         hide-on-click-modal
-      >
-        <template #placeholder> </template>
-      </el-image>
+      ></el-image>
     </div>
   </div>
   <el-pagination
@@ -137,11 +135,9 @@ function changeTag() {
   font-size: 30px;
 }
 .demo-image .block {
-  padding: 30px 0;
+  padding: 15px;
   text-align: center;
-  border-right: solid 1px var(--el-border-color);
   display: inline-block;
-  width: 20%;
   box-sizing: border-box;
   vertical-align: top;
 }
@@ -153,5 +149,12 @@ function changeTag() {
   color: var(--el-text-color-secondary);
   font-size: 14px;
   margin-bottom: 20px;
+}
+.img {
+  width: 230px;
+  transition: all 0.4s;
+}
+.img:hover {
+  box-shadow: var(--el-box-shadow-light);
 }
 </style>
