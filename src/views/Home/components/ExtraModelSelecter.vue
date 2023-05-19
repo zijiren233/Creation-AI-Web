@@ -7,9 +7,11 @@ onMounted(() => {
     ConfigStore.getAllExtraModelGroups();
   }
 });
+const loading = ref(false);
 const currentGroup = ref("");
 async function select(node: any) {
-  const group = node.index;
+  loading.value = false;
+  const group = node;
   if (
     ConfigStore.extraModelsWithGroup[group] === undefined ||
     ConfigStore.extraModelsWithGroup[group].length === 0
@@ -17,64 +19,59 @@ async function select(node: any) {
     await ConfigStore.getAllExtraModelsWithGroup(group);
   }
   currentGroup.value = group;
+  loading.value = true;
 }
 </script>
 
 <template>
-  <el-container class="layout-container-demo" style="height: 500px">
-    <el-aside width="200px">
-      <el-scrollbar>
-        <el-menu :default-openeds="['1', '3']">
-          <el-menu-item-group>
-            <el-menu-item
-              v-for="item in ConfigStore.extraModelGroups"
-              :index="item"
-              @click="select"
-              >{{ item }}</el-menu-item
-            >
-          </el-menu-item-group>
-        </el-menu>
-      </el-scrollbar>
-    </el-aside>
-    <el-main>
-      <el-scrollbar>
-        <div class="demo-image">
-          <div
-            v-for="item in ConfigStore.extraModelsWithGroup[currentGroup]"
-            :key="item.Name"
-            class="block"
-          >
-            <span class="demonstration">{{ item.Name }}</span>
-            <el-image
-              style="width: 100px; height: 100px"
-              :src="item.Preview"
-              fit="contain"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </el-scrollbar>
-    </el-main>
-  </el-container>
+  <div>
+    <el-form-item>
+      <el-select v-model="currentGroup" class="m-2" placeholder="Select" size="large">
+        <el-option
+          v-for="item in ConfigStore.extraModelGroups"
+          :key="item"
+          :value="item"
+          @click="select(item)"
+        />
+      </el-select>
+    </el-form-item>
+    <el-scrollbar height="55vh" v-if="loading">
+      <div class="a">
+        <el-card
+          class="box-card"
+          :body-style="{ padding: '0px' }"
+          v-for="item in ConfigStore.extraModelsWithGroup[currentGroup]"
+          :key="item.Name"
+        >
+          <img :src="item.Preview" style="width:100%" />
+          <div style="padding: 14px">{{ item.Name }}</div>
+        </el-card>
+      </div>
+    </el-scrollbar>
+  </div>
 </template>
 
 <style scoped>
-.demo-image .block {
-  padding: 30px 0;
-  text-align: center;
-  border-right: solid 1px var(--el-border-color);
-  display: inline-block;
-  width: 20%;
-  box-sizing: border-box;
-  vertical-align: top;
-}
-.demo-image .block:last-child {
-  border-right: none;
-}
-.demo-image .demonstration {
+.box-card {
+  width: 18%;
   display: block;
-  color: var(--el-text-color-secondary);
-  font-size: 14px;
-  margin-bottom: 20px;
+  margin: 10px;
+}
+
+.a {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1100px) {
+  .box-card {
+    width: 28%;
+  }
+}
+
+@media (max-width: 453px) {
+  .box-card {
+    width: 43%;
+  }
 }
 </style>
