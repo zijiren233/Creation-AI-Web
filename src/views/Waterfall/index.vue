@@ -22,24 +22,15 @@ const input = ref<string>(route.query.tag?.toString() || "");
 const currentPage = ref<number>(stringToNumber(route.query.page?.toString()));
 const maxCount = ref<number>(0);
 const imgModal = ref(false);
-// const imgData = ref<
-//   {
-//     id: string;
-//     image: string;
-//     width: number;
-//     height: number;
-//     cfg: string;
-//   }[]
-// >([]);
-
 let imgData: {
   id: string;
   image: string;
   width: number;
   height: number;
   cfg: string;
-  [propName: string]: unknown;
+  [propName: string]: any;
 };
+
 const load = async (tag: string = "", page: number = 1) => {
   const res = await search(tag, "latest", page, now);
   maxCount.value = res.data.maxcount;
@@ -109,16 +100,6 @@ function openImgModal(data: any) {
   const model = modelMatch ? modelMatch[1] : "";
   const uc = ucMatch ? ucMatch[1] : "";
 
-  console.log("Tag:", tag);
-  console.log("Mode:", mode);
-  console.log("Steps:", steps);
-  console.log("Seed:", seed);
-  console.log("Scale:", scale);
-  console.log("Width:", width);
-  console.log("Height:", height);
-  console.log("Model:", model);
-  console.log("UC:", uc);
-
   imgModal.value = true;
   imgData = {
     id: data.id,
@@ -163,9 +144,6 @@ function openImgModal(data: any) {
           fit="contain"
           loading="lazy"
         ></el-image>
-        <!-- preview-teleported
-        hide-on-click-modal
-        :preview-src-list="datas.map((item) => item.image)"-->
       </div>
     </div>
     <el-pagination
@@ -177,10 +155,10 @@ function openImgModal(data: any) {
       layout="prev, pager, next"
       :total="maxCount"
     />
-    <el-dialog v-model="imgModal" title="Preview" align-center width="auto">
+    <el-dialog v-model="imgModal" title="Preview" align-center width="auto" destroy-on-close>
       <el-row :gutter="30">
         <el-col :md="8" :sm="10">
-          <el-image :src="imgData.image" fit="contain" loading="lazy"></el-image>
+          <el-image :src="imgData.image" fit="contain" loading="lazy" class="previewImage"></el-image>
           <br />
           <br />
         </el-col>
@@ -192,19 +170,18 @@ function openImgModal(data: any) {
             <el-form-item label="Uc">
               <el-input v-model="imgData.uc" type="textarea" />
             </el-form-item>
-
             <el-row>
               <el-col :span="12">
-                <el-form-item label="Mode">{{ imgData.mode }}</el-form-item>
                 <el-form-item label="Steps">{{ imgData.steps }}</el-form-item>
                 <el-form-item label="Scale">{{imgData.scale}}</el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item required label="Model">{{ imgData.model }}</el-form-item>
                 <el-form-item label="Width" prop="size">{{imgData.width_}}</el-form-item>
                 <el-form-item label="Height">{{ imgData.height_ }}</el-form-item>
               </el-col>
             </el-row>
+            <el-form-item label="Mode">{{ imgData.mode }}</el-form-item>
+            <el-form-item required label="Model">{{ imgData.model }}</el-form-item>
             <el-form-item label="Seed">
               <el-input-number
                 v-model.number="imgData.seed"
