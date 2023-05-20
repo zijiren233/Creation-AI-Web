@@ -21,11 +21,13 @@ const NotificationStore = useNotificationStore();
     <template
       v-if="AuthStore.auth.password === '' || AuthStore.auth.username === ''"
     >
-      <el-menu-item index="/login">Log in</el-menu-item>
-
-      <a target="_blank" href="https://t.me/NovelAIDraw_bot?start=start"
-        ><el-menu-item>Sign up</el-menu-item></a
-      >
+      <el-sub-menu>
+        <template #title>Auth</template>
+        <el-menu-item index="/login">Log in</el-menu-item>
+        <a target="_blank" href="https://t.me/NovelAIDraw_bot?start=start">
+          <el-menu-item>Sign up</el-menu-item>
+        </a>
+      </el-sub-menu>
     </template>
     <template v-else>
       <el-menu-item
