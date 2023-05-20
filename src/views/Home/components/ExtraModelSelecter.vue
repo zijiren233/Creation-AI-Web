@@ -2,15 +2,17 @@
 import { onMounted, ref } from "vue";
 import { useConfigStore } from "@/stores/config.js";
 const ConfigStore = useConfigStore();
+const selectLoading = ref(true);
+const itemLoading = ref(false);
 onMounted(() => {
   if (ConfigStore.extraModelGroups.length === 0) {
     ConfigStore.getAllExtraModelGroups();
+    selectLoading.value = false;
   }
 });
-const loading = ref(false);
 const currentGroup = ref("");
 async function select(node: any) {
-  loading.value = false;
+  itemLoading.value = false;
   const group = node;
   if (
     ConfigStore.extraModelsWithGroup[group] === undefined ||
@@ -19,14 +21,20 @@ async function select(node: any) {
     await ConfigStore.getAllExtraModelsWithGroup(group);
   }
   currentGroup.value = group;
-  loading.value = true;
+  itemLoading.value = true;
 }
 </script>
 
 <template>
   <div>
     <el-form-item>
-      <el-select v-model="currentGroup" class="m-2" placeholder="Select" size="large">
+      <el-select
+        v-model="currentGroup"
+        class="m-2"
+        placeholder="Select"
+        size="large"
+        :loading="selectLoading"
+      >
         <el-option
           v-for="item in ConfigStore.extraModelGroups"
           :key="item"
@@ -35,7 +43,7 @@ async function select(node: any) {
         />
       </el-select>
     </el-form-item>
-    <el-scrollbar height="55vh" v-if="loading">
+    <el-scrollbar height="55vh" v-if="itemLoading">
       <div class="a">
         <el-card
           class="box-card"
