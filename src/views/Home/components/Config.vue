@@ -150,7 +150,7 @@ async function getDraw() {
   <el-form
     ref="formRef"
     :model="ConfigStore.config"
-    label-width="120px"
+
     :rules="rules"
     scroll-to-error
     hide-required-asterisk
@@ -222,7 +222,7 @@ async function getDraw() {
         step-strictly
       />
     </el-form-item>
-    <el-form-item label="Lock Ratio">
+    <el-form-item label="Lock Ratio" class="config_radio-fix-size">
       <el-switch
         v-model="ConfigStore.lockRatio"
         :style="{
@@ -268,10 +268,10 @@ async function getDraw() {
     <el-form-item label="Extra Model">
       <el-switch v-model="extraModelSwitch" />
     </el-form-item>
-    <ExtraModelSelecter v-if="extraModelSwitch"></ExtraModelSelecter>
+    <ExtraModelSelecter v-if="extraModelSwitch" class="config_extra-model-selecter"></ExtraModelSelecter>
     <br />
-    <el-form-item>
-      <el-button type="primary" @click="Create">Create</el-button>
+    <el-form-item class="button_config" >
+      <el-button type="primary" :style="{'margin':'0px 0 0 120px'}" @click="Create">Create</el-button>
     </el-form-item>
   </el-form>
 </template>
