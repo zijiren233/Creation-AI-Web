@@ -51,7 +51,7 @@ async function select(node: any) {
           v-for="item in ConfigStore.extraModelsWithGroup[currentGroup]"
           :key="item.Name"
         >
-          <img :src="item.Preview" style="width:100%" />
+          <img :src="item.Preview" style="width: 100%" />
           <div style="padding: 14px">{{ item.Name }}</div>
         </el-card>
       </div>

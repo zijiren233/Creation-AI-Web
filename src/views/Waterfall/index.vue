@@ -31,7 +31,7 @@ onMounted(() => {
     stringToNumber(route.query.page?.toString())
   );
 });
-onBeforeRouteUpdate(to => {
+onBeforeRouteUpdate((to) => {
   input.value = to.query.tag?.toString()!;
   currentPage.value = stringToNumber(to.query.page?.toString());
   load(to.query.tag?.toString()!, stringToNumber(to.query.page?.toString()!));
@@ -43,8 +43,8 @@ function changePage() {
     path: "/waterfall",
     query: {
       tag: route.query.tag?.toString()!,
-      page: currentPage.value
-    }
+      page: currentPage.value,
+    },
   });
 }
 function changeTag() {
@@ -53,8 +53,8 @@ function changeTag() {
     path: "/waterfall",
     query: {
       tag: input.value,
-      page: 1
-    }
+      page: 1,
+    },
   });
 }
 </script>
