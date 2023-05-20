@@ -4,6 +4,7 @@ import { search } from "@/apis/images";
 import router from "@/router";
 import { onBeforeRouteUpdate } from "vue-router";
 import { stringToNumber } from "@/utile/utils";
+import { log } from "console";
 let now = new Date().getTime();
 const datas = ref<
   {
@@ -20,6 +21,25 @@ const route = router.currentRoute.value;
 const input = ref<string>(route.query.tag?.toString() || "");
 const currentPage = ref<number>(stringToNumber(route.query.page?.toString()));
 const maxCount = ref<number>(0);
+const imgModal = ref(false);
+// const imgData = ref<
+//   {
+//     id: string;
+//     image: string;
+//     width: number;
+//     height: number;
+//     cfg: string;
+//   }[]
+// >([]);
+
+let imgData: {
+  id: string;
+  image: string;
+  width: number;
+  height: number;
+  cfg: string;
+  [propName: string]: unknown;
+};
 const load = async (tag: string = "", page: number = 1) => {
   const res = await search(tag, "latest", page, now);
   maxCount.value = res.data.maxcount;
@@ -31,7 +51,7 @@ onMounted(() => {
     stringToNumber(route.query.page?.toString())
   );
 });
-onBeforeRouteUpdate((to) => {
+onBeforeRouteUpdate(to => {
   input.value = to.query.tag?.toString()!;
   currentPage.value = stringToNumber(to.query.page?.toString());
   load(to.query.tag?.toString()!, stringToNumber(to.query.page?.toString()!));
@@ -43,8 +63,8 @@ function changePage() {
     path: "/waterfall",
     query: {
       tag: route.query.tag?.toString()!,
-      page: currentPage.value,
-    },
+      page: currentPage.value
+    }
   });
 }
 function changeTag() {
@@ -53,48 +73,161 @@ function changeTag() {
     path: "/waterfall",
     query: {
       tag: input.value,
-      page: 1,
-    },
+      page: 1
+    }
   });
+}
+
+function openImgModal(data: any) {
+  const tagRegex = /tag:\s*(.*?)(?=\s*mode:|$)/;
+  const modeRegex = /mode:\s*(.*?)(?=\s*steps:|$)/;
+  const stepsRegex = /steps:\s*(\d+)(?=\s*seed:|$)/;
+  const seedRegex = /seed:\s*(\d+)(?=\s*scale:|$)/;
+  const scaleRegex = /scale:\s*(\d+)(?=\s*width:|$)/;
+  const widthRegex = /width:\s*(\d+)(?=\s*height:|$)/;
+  const heightRegex = /height:\s*(\d+)(?=\s*model:|$)/;
+  const modelRegex = /model:\s*(.*?)(?=\s*uc:|$)/;
+  const ucRegex = /uc:\s*(.*?)(?=\s*$)/;
+
+  const tagMatch = data.cfg.match(tagRegex);
+  const modeMatch = data.cfg.match(modeRegex);
+  const stepsMatch = data.cfg.match(stepsRegex);
+  const seedMatch = data.cfg.match(seedRegex);
+  const scaleMatch = data.cfg.match(scaleRegex);
+  const widthMatch = data.cfg.match(widthRegex);
+  const heightMatch = data.cfg.match(heightRegex);
+  const modelMatch = data.cfg.match(modelRegex);
+  const ucMatch = data.cfg.match(ucRegex);
+
+  const tag = tagMatch ? tagMatch[1] : "";
+  const mode = modeMatch ? modeMatch[1] : "";
+  const steps = stepsMatch ? parseInt(stepsMatch[1]) : 0;
+  const seed = seedMatch ? parseInt(seedMatch[1]) : 0;
+  const scale = scaleMatch ? parseInt(scaleMatch[1]) : 0;
+  const width = widthMatch ? parseInt(widthMatch[1]) : 0;
+  const height = heightMatch ? parseInt(heightMatch[1]) : 0;
+  const model = modelMatch ? modelMatch[1] : "";
+  const uc = ucMatch ? ucMatch[1] : "";
+
+  console.log("Tag:", tag);
+  console.log("Mode:", mode);
+  console.log("Steps:", steps);
+  console.log("Seed:", seed);
+  console.log("Scale:", scale);
+  console.log("Width:", width);
+  console.log("Height:", height);
+  console.log("Model:", model);
+  console.log("UC:", uc);
+
+  imgModal.value = true;
+  imgData = {
+    id: data.id,
+    image: data.image,
+    width: data.width,
+    height: data.height,
+    cfg: data.cfg,
+    tag: tag,
+    mode: mode,
+    steps: steps,
+    seed: seed,
+    scale: scale,
+    width_: width,
+    height_: height,
+    model: model,
+    uc: uc
+  };
 }
 </script>
 
 <template>
-  <el-row>
-    <el-input
-      @keyup.enter="changeTag"
-      v-model="input"
-      :style="{
+  <div>
+    <el-row>
+      <el-input
+        @keyup.enter="changeTag"
+        v-model="input"
+        :style="{
         width: '230px',
         'margin-right': '20px',
       }"
-      placeholder="Search tag"
-    />
-    <el-button type="primary" @click="changeTag" round>Search</el-button>
-  </el-row>
-  <div class="demo-image">
-    <div v-for="(item, index) in datas" :key="item.id" class="block">
-      <el-image
-        :src="item.image"
-        class="img"
-        :preview-src-list="datas.map((item) => item.image)"
-        :initial-index="index"
-        fit="contain"
-        loading="lazy"
-        preview-teleported
+        placeholder="Search tag"
+      />
+      <el-button type="primary" @click="changeTag" round>Search</el-button>
+    </el-row>
+    <div class="demo-image">
+      <div v-for="(item, index) in datas" :key="item.id" class="block">
+        <el-image
+          @click="openImgModal(item)"
+          :src="item.image"
+          class="img"
+          :initial-index="index"
+          fit="contain"
+          loading="lazy"
+        ></el-image>
+        <!-- preview-teleported
         hide-on-click-modal
-      ></el-image>
+        :preview-src-list="datas.map((item) => item.image)"-->
+      </div>
     </div>
+    <el-pagination
+      v-show="maxCount > 20"
+      :page-size="20"
+      :pager-count="7"
+      v-model:current-page="currentPage"
+      @current-change="changePage"
+      layout="prev, pager, next"
+      :total="maxCount"
+    />
+    <el-dialog v-model="imgModal" title="Preview" align-center>
+      <el-row :gutter="30">
+        <el-col :md="8" :sm="10">
+          <el-image :src="imgData.image" fit="contain" loading="lazy"></el-image>
+        </el-col>
+        <el-col :md="16" :sm="14">
+          <el-form scroll-to-error hide-required-asterisk status-icon>
+            <el-form-item label="Tag" prop="tag">
+              <el-input v-model="imgData.tag" type="textarea" />
+            </el-form-item>
+            <el-form-item label="Uc">
+              <el-input v-model="imgData.uc" type="textarea" />
+            </el-form-item>
+            <el-form-item label="Mode">
+              <el-input v-model="imgData.mode" type="textarea" />
+            </el-form-item>
+            <el-form-item required label="Model">
+              <el-input v-model="imgData.model" type="textarea" />
+            </el-form-item>
+            <el-row>
+              <el-col :xs="6">
+                <el-form-item label="Steps">{{ imgData.steps }}</el-form-item>
+                <el-form-item label="Scale">{{imgData.scale}}</el-form-item>
+              </el-col>
+              <el-col :xs="6">
+                <el-form-item label="Width" prop="size">{{imgData.width_}}</el-form-item>
+                <el-form-item label="Height">{{ imgData.height_ }}</el-form-item>
+              </el-col>
+            </el-row>
+            <el-form-item label="Seed">
+              <el-input-number
+                v-model.number="imgData.seed"
+                :controls="false"
+                :min="0"
+                :max="4294967295"
+                :step="1"
+                step-strictly
+              />
+            </el-form-item>
+          </el-form>
+        </el-col>
+      </el-row>
+
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="imgModal = false">Cancel</el-button>
+          <el-button type="primary" @click="imgModal = false">Confirm</el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
-  <el-pagination
-    v-show="maxCount > 20"
-    :page-size="20"
-    :pager-count="11"
-    v-model:current-page="currentPage"
-    @current-change="changePage"
-    layout="prev, pager, next"
-    :total="maxCount"
-  />
 </template>
 
 <style scoped>
@@ -156,5 +289,14 @@ function changeTag() {
 }
 .img:hover {
   box-shadow: var(--el-box-shadow-light);
+}
+
+@media (max-width: 960px) {
+  .img {
+    width: calc(100vw - 60vw);
+  }
+  .demo-image .block {
+    padding: 8px;
+  }
 }
 </style>
