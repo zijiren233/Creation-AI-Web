@@ -2,12 +2,10 @@
 import { onMounted, ref } from "vue";
 import { useConfigStore } from "@/stores/config.js";
 const ConfigStore = useConfigStore();
-const selectLoading = ref(true);
 const itemLoading = ref(false);
 onMounted(() => {
   if (ConfigStore.extraModelGroups.length === 0) {
     ConfigStore.getAllExtraModelGroups();
-    selectLoading.value = false;
   }
 });
 const currentGroup = ref("");
@@ -28,13 +26,7 @@ async function select(node: any) {
 <template>
   <div>
     <el-form-item>
-      <el-select
-        v-model="currentGroup"
-        class="m-2"
-        placeholder="Select"
-        size="large"
-        :loading="selectLoading"
-      >
+      <el-select v-model="currentGroup" class="m-2" placeholder="Select" size="large">
         <el-option
           v-for="item in ConfigStore.extraModelGroups"
           :key="item"
