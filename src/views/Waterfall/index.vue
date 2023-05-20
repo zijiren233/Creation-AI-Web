@@ -4,7 +4,7 @@ import { search } from "@/apis/images";
 import router from "@/router";
 import { onBeforeRouteUpdate } from "vue-router";
 import { stringToNumber } from "@/utile/utils";
-import { log } from "console";
+import { parse } from "yaml";
 let now = new Date().getTime();
 const datas = ref<
   {
@@ -42,7 +42,7 @@ onMounted(() => {
     stringToNumber(route.query.page?.toString())
   );
 });
-onBeforeRouteUpdate(to => {
+onBeforeRouteUpdate((to) => {
   input.value = to.query.tag?.toString()!;
   currentPage.value = stringToNumber(to.query.page?.toString());
   load(to.query.tag?.toString()!, stringToNumber(to.query.page?.toString()!));
@@ -54,8 +54,8 @@ function changePage() {
     path: "/waterfall",
     query: {
       tag: route.query.tag?.toString()!,
-      page: currentPage.value
-    }
+      page: currentPage.value,
+    },
   });
 }
 function changeTag() {
@@ -64,41 +64,13 @@ function changeTag() {
     path: "/waterfall",
     query: {
       tag: input.value,
-      page: 1
-    }
+      page: 1,
+    },
   });
 }
 
 function openImgModal(data: any) {
-  const tagRegex = /tag:\s*(.*?)(?=\s*mode:|$)/;
-  const modeRegex = /mode:\s*(.*?)(?=\s*steps:|$)/;
-  const stepsRegex = /steps:\s*(\d+)(?=\s*seed:|$)/;
-  const seedRegex = /seed:\s*(\d+)(?=\s*scale:|$)/;
-  const scaleRegex = /scale:\s*(\d+)(?=\s*width:|$)/;
-  const widthRegex = /width:\s*(\d+)(?=\s*height:|$)/;
-  const heightRegex = /height:\s*(\d+)(?=\s*model:|$)/;
-  const modelRegex = /model:\s*(.*?)(?=\s*uc:|$)/;
-  const ucRegex = /uc:\s*(.*?)(?=\s*$)/;
-
-  const tagMatch = data.cfg.match(tagRegex);
-  const modeMatch = data.cfg.match(modeRegex);
-  const stepsMatch = data.cfg.match(stepsRegex);
-  const seedMatch = data.cfg.match(seedRegex);
-  const scaleMatch = data.cfg.match(scaleRegex);
-  const widthMatch = data.cfg.match(widthRegex);
-  const heightMatch = data.cfg.match(heightRegex);
-  const modelMatch = data.cfg.match(modelRegex);
-  const ucMatch = data.cfg.match(ucRegex);
-
-  const tag = tagMatch ? tagMatch[1] : "";
-  const mode = modeMatch ? modeMatch[1] : "";
-  const steps = stepsMatch ? parseInt(stepsMatch[1]) : 0;
-  const seed = seedMatch ? parseInt(seedMatch[1]) : 0;
-  const scale = scaleMatch ? parseInt(scaleMatch[1]) : 0;
-  const width = widthMatch ? parseInt(widthMatch[1]) : 0;
-  const height = heightMatch ? parseInt(heightMatch[1]) : 0;
-  const model = modelMatch ? modelMatch[1] : "";
-  const uc = ucMatch ? ucMatch[1] : "";
+  const cfg = parse(data.cfg);
 
   imgModal.value = true;
   imgData = {
@@ -107,15 +79,15 @@ function openImgModal(data: any) {
     width: data.width,
     height: data.height,
     cfg: data.cfg,
-    tag: tag,
-    mode: mode,
-    steps: steps,
-    seed: seed,
-    scale: scale,
-    width_: width,
-    height_: height,
-    model: model,
-    uc: uc
+    tag: cfg.tag,
+    mode: cfg.mode,
+    steps: cfg.steps,
+    seed: cfg.seed,
+    scale: cfg.scale,
+    width_: cfg.width,
+    height_: cfg.height,
+    model: cfg.model,
+    uc: cfg.uc,
   };
 }
 </script>
@@ -127,9 +99,9 @@ function openImgModal(data: any) {
         @keyup.enter="changeTag"
         v-model="input"
         :style="{
-        width: '230px',
-        'margin-right': '20px',
-      }"
+          width: '230px',
+          'margin-right': '20px',
+        }"
         placeholder="Search tag"
       />
       <el-button type="primary" @click="changeTag" round>Search</el-button>
@@ -155,10 +127,20 @@ function openImgModal(data: any) {
       layout="prev, pager, next"
       :total="maxCount"
     />
-    <el-dialog v-model="imgModal" title="Preview" align-center width="auto" destroy-on-close>
+    <el-dialog
+      v-model="imgModal"
+      title="Preview"
+      align-center
+      width="auto"
+      destroy-on-close
+    >
       <el-row :gutter="30">
         <el-col :md="8" :sm="10">
-          <el-image :src="imgData.image" fit="contain" loading="lazy"></el-image>
+          <el-image
+            :src="imgData.image"
+            fit="contain"
+            loading="lazy"
+          ></el-image>
           <br />
           <br />
         </el-col>
@@ -173,15 +155,21 @@ function openImgModal(data: any) {
             <el-row>
               <el-col :span="12">
                 <el-form-item label="Steps">{{ imgData.steps }}</el-form-item>
-                <el-form-item label="Scale">{{imgData.scale}}</el-form-item>
+                <el-form-item label="Scale">{{ imgData.scale }}</el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="Width" prop="size">{{imgData.width_}}</el-form-item>
-                <el-form-item label="Height">{{ imgData.height_ }}</el-form-item>
+                <el-form-item label="Width" prop="size">{{
+                  imgData.width_
+                }}</el-form-item>
+                <el-form-item label="Height">{{
+                  imgData.height_
+                }}</el-form-item>
               </el-col>
             </el-row>
             <el-form-item label="Mode">{{ imgData.mode }}</el-form-item>
-            <el-form-item required label="Model">{{ imgData.model }}</el-form-item>
+            <el-form-item required label="Model">{{
+              imgData.model
+            }}</el-form-item>
             <el-form-item label="Seed">
               <el-input-number
                 v-model.number="imgData.seed"
@@ -199,7 +187,9 @@ function openImgModal(data: any) {
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="imgModal = false">Cancel</el-button>
-          <el-button type="primary" @click="imgModal = false">Confirm</el-button>
+          <el-button type="primary" @click="imgModal = false"
+            >Confirm</el-button
+          >
         </span>
       </template>
     </el-dialog>
