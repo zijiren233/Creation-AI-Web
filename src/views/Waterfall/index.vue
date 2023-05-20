@@ -158,7 +158,7 @@ function openImgModal(data: any) {
     <el-dialog v-model="imgModal" title="Preview" align-center width="auto" destroy-on-close>
       <el-row :gutter="30">
         <el-col :md="8" :sm="10">
-          <el-image :src="imgData.image" fit="contain" loading="lazy" class="previewImage"></el-image>
+          <el-image :src="imgData.image" fit="contain" loading="lazy"></el-image>
           <br />
           <br />
         </el-col>
