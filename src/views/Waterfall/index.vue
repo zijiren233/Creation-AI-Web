@@ -177,10 +177,12 @@ function openImgModal(data: any) {
       layout="prev, pager, next"
       :total="maxCount"
     />
-    <el-dialog v-model="imgModal" title="Preview" align-center>
+    <el-dialog v-model="imgModal" title="Preview" align-center width="auto">
       <el-row :gutter="30">
         <el-col :md="8" :sm="10">
           <el-image :src="imgData.image" fit="contain" loading="lazy"></el-image>
+          <br />
+          <br />
         </el-col>
         <el-col :md="16" :sm="14">
           <el-form scroll-to-error hide-required-asterisk status-icon>
@@ -190,18 +192,15 @@ function openImgModal(data: any) {
             <el-form-item label="Uc">
               <el-input v-model="imgData.uc" type="textarea" />
             </el-form-item>
-            <el-form-item label="Mode">
-              <el-input v-model="imgData.mode" type="textarea" />
-            </el-form-item>
-            <el-form-item required label="Model">
-              <el-input v-model="imgData.model" type="textarea" />
-            </el-form-item>
+
             <el-row>
-              <el-col :xs="6">
+              <el-col :span="12">
+                <el-form-item label="Mode">{{ imgData.mode }}</el-form-item>
                 <el-form-item label="Steps">{{ imgData.steps }}</el-form-item>
                 <el-form-item label="Scale">{{imgData.scale}}</el-form-item>
               </el-col>
-              <el-col :xs="6">
+              <el-col :span="12">
+                <el-form-item required label="Model">{{ imgData.model }}</el-form-item>
                 <el-form-item label="Width" prop="size">{{imgData.width_}}</el-form-item>
                 <el-form-item label="Height">{{ imgData.height_ }}</el-form-item>
               </el-col>
