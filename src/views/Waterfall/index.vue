@@ -94,13 +94,13 @@ function openImgModal(data: any) {
 
 <template>
   <div>
-    <el-row>
+    <el-row :style="{ 'display': 'flex', 'justify-content':'center', 'flex-wrap':'nowrap','margin':'0 auto 10px' }">
       <el-input
         @keyup.enter="changeTag"
         v-model="input"
         :style="{
           width: '230px',
-          'margin-right': '20px',
+          'margin-right': '20px'
         }"
         placeholder="Search tag"
       />
@@ -114,29 +114,35 @@ function openImgModal(data: any) {
           class="img"
           :initial-index="index"
           fit="contain"
-          loading="lazy"
+          loading="lazy" 
         ></el-image>
       </div>
     </div>
     <el-pagination
+    :style="{
+      'display':'flex',
+      'justify-content':'center'
+    }"
       v-show="maxCount > 20"
       :page-size="20"
-      :pager-count="7"
+      :pager-count="4"
       v-model:current-page="currentPage"
       @current-change="changePage"
       layout="prev, pager, next"
       :total="maxCount"
     />
-    <el-dialog
+    <el-dialog 
       v-model="imgModal"
       title="Preview"
       align-center
-      width="auto"
+      width="90%"
       destroy-on-close
     >
-      <el-row :gutter="30">
+      <el-row :gutter="30" :style="{'margin':'-20px 0 0 0'}">
         <el-col :md="8" :sm="10">
           <el-image
+          :style="{
+        'padding':'0 0 20px 0'}"
             :src="imgData.image"
             fit="contain"
             loading="lazy"
@@ -146,31 +152,31 @@ function openImgModal(data: any) {
         </el-col>
         <el-col :md="16" :sm="14">
           <el-form scroll-to-error hide-required-asterisk status-icon>
-            <el-form-item label="Tag" prop="tag">
-              <el-input v-model="imgData.tag" type="textarea" />
+            <el-form-item label="Tag:" prop="tag">
+              <el-input v-model="imgData.tag" class="textarea_infoblock"  type="textarea" />
             </el-form-item>
-            <el-form-item label="Uc">
-              <el-input v-model="imgData.uc" type="textarea" />
+            <el-form-item label="Uc:">
+              <el-input v-model="imgData.uc" class="textarea_infoblock"  type="textarea" />
             </el-form-item>
             <el-row>
               <el-col :span="12">
-                <el-form-item label="Steps">{{ imgData.steps }}</el-form-item>
-                <el-form-item label="Scale">{{ imgData.scale }}</el-form-item>
+                <el-form-item label="Steps:" class="label_infoblock">{{ imgData.steps }}</el-form-item>
+                <el-form-item label="Scale:" class="label_infoblock">{{ imgData.scale }}</el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="Width" prop="size">{{
+                <el-form-item label="Width:" prop="size" class="label_infoblock">{{
                   imgData.width_
                 }}</el-form-item>
-                <el-form-item label="Height">{{
+                <el-form-item label="Height:" class="label_infoblock">{{
                   imgData.height_
                 }}</el-form-item>
               </el-col>
             </el-row>
-            <el-form-item label="Mode">{{ imgData.mode }}</el-form-item>
-            <el-form-item required label="Model">{{
+            <el-form-item label="Mode:" class="label_infoblock">{{ imgData.mode }}</el-form-item>
+            <el-form-item required label="Model:" class="label_infoblock">{{
               imgData.model
             }}</el-form-item>
-            <el-form-item label="Seed">
+            <el-form-item label="Seed:" class="label_infoblock">
               <el-input-number
                 v-model.number="imgData.seed"
                 :controls="false"
@@ -197,6 +203,7 @@ function openImgModal(data: any) {
 </template>
 
 <style scoped>
+
 .demo-image__error .block {
   padding: 30px 0;
   text-align: center;
@@ -259,7 +266,7 @@ function openImgModal(data: any) {
 
 @media (max-width: 960px) {
   .img {
-    width: calc(100vw - 60vw);
+    width: calc(100vw - 65vw);
   }
   .demo-image .block {
     padding: 8px;

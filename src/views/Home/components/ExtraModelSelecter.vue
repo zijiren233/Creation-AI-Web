@@ -27,7 +27,7 @@ async function select(node: any) {
   <div>
     <el-form-item>
       <el-select v-model="currentGroup" class="m-2" placeholder="Select" size="large">
-        <el-option
+        <el-option 
           v-for="item in ConfigStore.extraModelGroups"
           :key="item"
           :value="item"

@@ -40,14 +40,15 @@ function Save() {
 
 <template>
   <el-form :rules="rules" ref="formRef" :model="userAuth" label-width="120px">
-    <el-form-item prop="username" label="Username" style="width: 300px">
+    <el-form-item prop="username" label="Username" style="max-width: 300px">
       <el-input
         v-model="userAuth.username"
         placeholder="Please input username"
+        :style="{'max-width':'158px'}"
       />
     </el-form-item>
-    <el-form-item prop="password" label="Password" style="width: 300px"
-      ><el-input
+    <el-form-item prop="password" label="Password" style="max-width: 300px"
+      ><el-input :style="{'max-width':'158px'}"
         v-model="userAuth.password"
         type="password"
         placeholder="Please input password"
@@ -55,7 +56,7 @@ function Save() {
       />
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="Save">Save</el-button>
+      <el-button type="primary" class="login_button" @click="Save">Save</el-button>
     </el-form-item>
   </el-form>
 </template>
