@@ -2,19 +2,16 @@
    v2.0 | 20110126
    License: none (public domain)
     */
-    /* Убираем стандартный скроллбар */
     
      ::-webkit-scrollbar {
         width: 5.4px;
         background-color: #e9e9e9;
     }
-    /* Стилизуем полосу прокрутки */
     
      ::-webkit-scrollbar-thumb {
         background-color: #606266;
         border-radius: 3px;
     }
-    /* Стилизуем кнопки скролла */
     
      ::-webkit-scrollbar-button {
         display: none;
@@ -81,11 +78,15 @@
     
     .config_extra-model-selecter {
         margin: 5px 0 0 120px;
-        max-width: 238px;
+        max-width: none;
     }
     
     .el-select-dropdown__list {
         max-width: 238px;
+    }
+    
+    .el-select-dropdown__list {
+        max-width: 233px;
     }
     
     @media (max-width: 770px) {
@@ -100,6 +101,10 @@
     }
     
     @media (max-width: 425px) {
+        .config_extra-model-selecter {
+            margin: 5px 0 0 120px;
+            max-width: 238px;
+        }
         .config_extra-model-selecter {
             margin: 40px 0 -5px 0px;
         }
