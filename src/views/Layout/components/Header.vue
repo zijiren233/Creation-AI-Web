@@ -3,6 +3,9 @@ import { useAuthStore } from "@/stores/auth";
 import { useNotificationStore } from "@/stores/notification.js";
 const AuthStore = useAuthStore();
 const NotificationStore = useNotificationStore();
+const signup = () => {
+  window.open("https://t.me/NovelAIDraw_bot?start=start", "_blank");
+};
 </script>
 
 <template>
@@ -21,12 +24,10 @@ const NotificationStore = useNotificationStore();
     <template
       v-if="AuthStore.auth.password === '' || AuthStore.auth.username === ''"
     >
-      <el-sub-menu>
+      <el-sub-menu index="/login">
         <template #title>Auth</template>
         <el-menu-item index="/login">Log in</el-menu-item>
-        <a target="_blank" href="https://t.me/NovelAIDraw_bot?start=start">
-          <el-menu-item>Sign up</el-menu-item>
-        </a>
+        <el-menu-item index="/login" @click="signup">Sign up</el-menu-item>
       </el-sub-menu>
     </template>
     <template v-else>
