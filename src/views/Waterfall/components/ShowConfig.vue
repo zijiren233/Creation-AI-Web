@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import copyText from "@/utile/copyText";
-import { watch, ref } from "vue";
 import { useWaterfallStore } from "@/stores/waterfall";
+import { stringify } from "yaml";
 
 const WaterfallStore = useWaterfallStore();
 </script>
@@ -11,8 +11,7 @@ const WaterfallStore = useWaterfallStore();
     v-model="WaterfallStore.imgModal"
     title="Preview"
     align-center
-    width="90%"
-    destroy-on-close
+    width="70%"
     append-to-body
   >
     <el-row :gutter="30" :style="{ margin: '-20px 0 0 0' }">
@@ -21,7 +20,7 @@ const WaterfallStore = useWaterfallStore();
           :style="{
             padding: '0 0 20px 0',
           }"
-          :src="WaterfallStore.imgData.image"
+          :src="WaterfallStore.currentClickData!.image"
           fit="contain"
           loading="lazy"
         ></el-image>
@@ -32,14 +31,14 @@ const WaterfallStore = useWaterfallStore();
         <el-form scroll-to-error hide-required-asterisk status-icon>
           <el-form-item label="Tag:" prop="tag">
             <el-input
-              v-model="WaterfallStore.imgData.tag"
+              v-model="WaterfallStore.currentClickData!.cfg.tag"
               class="textarea_infoblock"
               type="textarea"
             />
           </el-form-item>
           <el-form-item label="Uc:">
             <el-input
-              v-model="WaterfallStore.imgData.uc"
+              v-model="WaterfallStore.currentClickData!.cfg.uc"
               class="textarea_infoblock"
               type="textarea"
             />
@@ -47,33 +46,89 @@ const WaterfallStore = useWaterfallStore();
           <el-row>
             <el-col :span="12">
               <el-form-item label="Steps:" class="label_infoblock">{{
-                WaterfallStore.imgData.steps
+                WaterfallStore.currentClickData!.cfg.steps
               }}</el-form-item>
               <el-form-item label="Scale:" class="label_infoblock">{{
-                WaterfallStore.imgData.scale
+                WaterfallStore.currentClickData!.cfg.scale
               }}</el-form-item>
+
+              <el-form-item label="Mode:" class="label_infoblock">{{
+                WaterfallStore.currentClickData!.cfg.mode
+              }}</el-form-item>
+              <el-form-item
+                v-if="
+                  WaterfallStore.currentClickData!.cfg.pre_photo !== undefined
+                "
+                label="Prefer Photo:"
+                class="label_infoblock"
+                >{{
+                  WaterfallStore.currentClickData!.cfg.pre_photo
+                }}</el-form-item
+              >
+              <el-form-item
+                v-if="
+                  WaterfallStore.currentClickData!.cfg.control_photo !==
+                  undefined
+                "
+                label="Control Photo:"
+                class="label_infoblock"
+                >{{
+                  WaterfallStore.currentClickData!.cfg.control_photo
+                }}</el-form-item
+              >
+              <el-form-item
+                v-if="
+                  WaterfallStore.currentClickData!.cfg.control_process !==
+                  undefined
+                "
+                label="Control Process:"
+                class="label_infoblock"
+                >{{
+                  WaterfallStore.currentClickData!.cfg.control_process
+                }}</el-form-item
+              >
             </el-col>
             <el-col :span="12">
               <el-form-item
                 label="Width:"
                 prop="size"
                 class="label_infoblock"
-                >{{ WaterfallStore.imgData.width_ }}</el-form-item
+                >{{ WaterfallStore.currentClickData!.cfg.width }}</el-form-item
               >
               <el-form-item label="Height:" class="label_infoblock">{{
-                WaterfallStore.imgData.height_
+                WaterfallStore.currentClickData!.cfg.height
               }}</el-form-item>
+
+              <el-form-item required label="Model:" class="label_infoblock">{{
+                WaterfallStore.currentClickData!.cfg.model
+              }}</el-form-item>
+              <el-form-item
+                v-if="
+                  WaterfallStore.currentClickData!.cfg.strength !== undefined
+                "
+                label="Strength:"
+                class="label_infoblock"
+                >{{
+                  WaterfallStore.currentClickData!.cfg.strength
+                }}</el-form-item
+              >
+              <el-form-item
+                v-if="
+                  WaterfallStore.currentClickData!.cfg.control_preprocess !==
+                  undefined
+                "
+                label="Control Preprocess:"
+                class="label_infoblock"
+                >{{
+                  WaterfallStore.currentClickData!.cfg.control_preprocess
+                }}</el-form-item
+              >
             </el-col>
           </el-row>
-          <el-form-item label="Mode:" class="label_infoblock">{{
-            WaterfallStore.imgData.mode
-          }}</el-form-item>
-          <el-form-item required label="Model:" class="label_infoblock">{{
-            WaterfallStore.imgData.model
-          }}</el-form-item>
+
           <el-form-item label="Seed:" class="label_infoblock">
             <el-input-number
-              v-model.number="WaterfallStore.imgData.seed"
+              v-model.number="WaterfallStore.currentClickData!.cfg.seed"
               :controls="false"
               :min="0"
               :max="4294967295"
@@ -87,7 +142,8 @@ const WaterfallStore = useWaterfallStore();
 
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="copyText(WaterfallStore.imgData.cfg)"
+        <el-button
+          @click="copyText(stringify(WaterfallStore.currentClickData!.cfg!))"
           >Copy Config</el-button
         >
         <el-button type="primary" @click="WaterfallStore.imgModal = false"

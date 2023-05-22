@@ -153,6 +153,7 @@ async function getDraw() {
     hide-required-asterisk
     status-icon
     v-loading="ConfigStore.loading"
+    @submit.prevent
   >
     <el-form-item label="Tag" prop="tag">
       <el-input v-model="ConfigStore.config.tag" type="textarea" />
@@ -264,8 +265,7 @@ async function getDraw() {
     </el-form-item>
     <PrePhoto></PrePhoto>
     <ExtraModelSelecter></ExtraModelSelecter>
-    <el-form-item class="button_config">
-      <label class="el-form-item__label"></label>
+    <el-form-item class="button_config" style="margin-left: 120px">
       <el-button type="primary" @click="Create">Create</el-button>
     </el-form-item>
   </el-form>

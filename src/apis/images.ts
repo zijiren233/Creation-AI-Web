@@ -1,6 +1,6 @@
 import httpInstanse from "@/utile/http";
 
-export function search(keywords:string, order_type:string, page:number, time:number) {
+export function search(keywords: string, order_type: string, page: number, time: number) {
   return httpInstanse({
     url: "search-images",
     params: {
@@ -9,6 +9,7 @@ export function search(keywords:string, order_type:string, page:number, time:num
       page,
       time,
       maxcount: true,
+      cfg_type: "json"
     },
   });
 }

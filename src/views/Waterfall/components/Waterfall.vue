@@ -3,7 +3,6 @@ import { ref, onMounted, watch, reactive } from "vue";
 import router from "@/router";
 import { onBeforeRouteUpdate } from "vue-router";
 import { stringToNumber } from "@/utile/utils";
-import { parse } from "yaml";
 import ShowConfig from "@/views/Waterfall/components/ShowConfig.vue";
 import { useWaterfallStore } from "@/stores/waterfall";
 
@@ -44,25 +43,9 @@ function changeTag() {
 }
 
 function openImgModal(data: any) {
-  const cfg = parse(data.cfg);
+  WaterfallStore.currentClickData = data;
 
   WaterfallStore.imgModal = true;
-  WaterfallStore.imgData = {
-    id: data.id,
-    image: data.image,
-    width: data.width,
-    height: data.height,
-    cfg: data.cfg,
-    tag: cfg.tag,
-    mode: cfg.mode,
-    steps: cfg.steps,
-    seed: cfg.seed,
-    scale: cfg.scale,
-    width_: cfg.width,
-    height_: cfg.height,
-    model: cfg.model,
-    uc: cfg.uc,
-  };
 }
 </script>
 
@@ -115,10 +98,7 @@ function openImgModal(data: any) {
       layout="prev, pager, next"
       :total="WaterfallStore.maxCount"
     />
-    <ShowConfig
-      v-model="WaterfallStore.imgModal"
-      :imgData="WaterfallStore.imgData"
-    ></ShowConfig>
+    <ShowConfig></ShowConfig>
   </div>
 </template>
 
