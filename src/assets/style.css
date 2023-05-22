@@ -1,7 +1,7 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-    */
+body {
+    font-family: "Lato", sans-serif;
+    line-height: 1;
+}
 
 ::-webkit-scrollbar {
     width: 5.4px;
@@ -17,19 +17,19 @@
     display: none;
 }
 
-body {
-    font-family: "Lato", sans-serif;
-    line-height: 1;
+.el-form-item__content {
+    flex-wrap: nowrap;
+    align-items: flex-start;
 }
 
-label,
-.el-form-item>div {
-    width: 120px;
+.extra_models_content>.el-form-item__content {
+    flex-wrap: wrap;
+    align-items: flex-end;
 }
 
 .flex-grow {
     flex-grow: 1;
-    min-width: 6px;
+    min-width: 5px;
 }
 
 textarea {
@@ -37,267 +37,9 @@ textarea {
     height: 110px;
 }
 
-.el-slider__runway.show-input {
-    margin-right: 15px;
-    width: auto;
-}
-
-.el-slider__input {
-    flex-shrink: 0;
-    width: 140px;
-    margin: 0;
-}
-
-.demo-image {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.el-form label {
-    max-width: 120px;
-}
-
-.el-dialog__body {
-    margin: -5px 0 -30px 0px;
-}
-
-.textarea_infoblock {
-    margin: 0 0 0 0px;
-}
-
-.label_infoblock>div,
-.label_infoblock>label {
-    margin: 0 0px 0px 0px;
-}
-
-.el-input-number__increase,
-.el-input-number__decrease {
-    border-bottom: 1px solid #dcdfe6;
-}
-
-.config_extra-model-selecter {
-    margin: 5px 0 0 120px;
-    max-width: none;
-}
-
-.el-select-dropdown__list {
-    max-width: 238px;
-}
-
-.el-select-dropdown__list {
-    max-width: 233px;
-    max-width: 238px;
-}
-
-.swagger-ui .model-box-control,
-.swagger-ui .models-control,
-.swagger-ui .opblock-summary-control {
-    all: inherit !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    border-bottom: 0 !important;
-    cursor: pointer !important;
-    flex: 1 !important;
-    padding: 0 !important;
-}
-
-.swagger-ui .opblock .opblock-section-header>label {
-    margin: 0 177px 0 auto !important;
-}
-
-.swagger-ui .info {
-    margin: 50px 0 0 0;
-}
-
-@media (max-width: 770px) {
-    .swagger-ui .opblock .opblock-section-header>label {
-        margin: 0 25px 0 0px !important;
-    }
-    .label_infoblock>div,
-    .label_infoblock>label {
-        margin: 0 0px 0px 0px;
-    }
-    [class*="el-col-"].is-guttered {
-        display: flex;
-        flex-direction: column-reverse;
-    }
-    .microlight {
-        padding: 9px 0px 20px 10px !important;
-    }
-}
-
-@media (max-width: 425px) {
-    .swagger-ui .model-box {
-        padding: 3px !important;
-    }
-    .swagger-ui .model-title {
-        font-size: 12px !important;
-    }
-    .swagger-ui table tbody tr td:first-of-type {
-        min-width: 3em !important;
-        padding: 10px 0px !important;
-    }
-    .swagger-ui .opblock .opblock-section-header>label {
-        margin: 0 35px 0 0px !important;
-    }
-    .swagger-ui .response-col_description {
-        margin: 10px 0 0 0 !important;
-    }
-    .swagger-ui .opblock .opblock-section-header {
-        padding: 8px 15px !important;
-    }
-    .swagger-ui .opblock .opblock-summary-operation-id,
-    .swagger-ui .opblock .opblock-summary-path,
-    .swagger-ui .opblock .opblock-summary-path__deprecated {
-        padding: 10px 0 !important;
-    }
-    .swagger-ui .model-box-control,
-    .swagger-ui .models-control,
-    .swagger-ui .opblock-summary-control {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-    }
-    .swagger-ui .info {
-        margin: 40px 0 25px 0 !important;
-    }
-    .el-main {
-        --el-main-padding: 0px;
-    }
-    .swagger-ui .opblock .opblock-summary-method {
-        min-width: 45px !important;
-    }
-    .config_extra-model-selecter {
-        margin: 5px 0 0 120px;
-        max-width: 238px;
-    }
-    .config_extra-model-selecter {
-        margin: 40px 0 -5px 0px;
-    }
-    .label_infoblock>div,
-    .label_infoblock>label {
-        margin: 0 -35px 0px 0px;
-    }
-    .el-dialog__body {
-        margin: -25px 0 -30px 0px;
-    }
-    .textarea_infoblock {
-        margin: 0 0 0 -50px;
-        width: 305px;
-    }
-    .el-form-item__content {
-        margin-left: 0;
-    }
-    .button_config {
-        margin-left: -120px;
-    }
-    label,
-    .el-form-item>div {
-        width: 86px;
-    }
-    .el-form-item__label {
-        justify-content: flex-start;
-    }
-}
-
-@media (max-width: 375px) {
-    .swagger-ui .info .title {
-        font-size: 26px !important;
-    }
-    .swagger-ui .info .base-url {
-        font-size: 11px !important;
-    }
-    .el-menu-item {
-        padding: 0 10px;
-    }
-    .el-form label {
-        max-width: 80px;
-    }
-    .login_button {
-        margin: 0 0 0 -40px;
-    }
-}
-
 @media (max-width: 330px) {
-    .swagger-ui .opblock .opblock-section-header>label {
-        margin: 0 25px 0 0px !important;
-    }
     .el-slider__runway.show-input,
     .config_radio-fix-size {
         display: none;
     }
-    .el-slider__input {
-        flex-shrink: 0;
-        width: 140px;
-        margin: 0px 0 0 -25px;
-    }
-}
-
-@media (max-width: 315px) {
-    .el-menu-item {
-        padding: 0 6px;
-    }
-    .el-sub-menu__title {
-        padding: 0 10px;
-        padding-right: calc(30px + 7px);
-    }
-}
-
-
-/*   R E S E T   */
-
-
-/* you can use this */
-
-* {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-}
-
-
-/* "*" - all tags html */
-
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-    display: block;
-}
-
-ol,
-ul {
-    list-style: none;
-}
-
-blockquote,
-q {
-    quotes: none;
-}
-
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-    content: "";
-    content: none;
-}
-
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-a {
-    text-decoration: none;
 }

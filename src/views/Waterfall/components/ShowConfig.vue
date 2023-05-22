@@ -6,7 +6,7 @@ import { useWaterfallStore } from "@/stores/waterfall";
 const WaterfallStore = useWaterfallStore();
 </script>
 
-<template>
+<template >
   <el-dialog
     v-model="WaterfallStore.imgModal"
     title="Preview"
@@ -15,7 +15,7 @@ const WaterfallStore = useWaterfallStore();
     destroy-on-close
     append-to-body
   >
-    <el-row :gutter="30" :style="{ margin: '-20px 0 0 0' }">
+    <el-row class="dialog_body" :gutter="30" :style="{ margin: '-20px 0 0 0' }" >
       <el-col :md="8" :sm="10">
         <el-image
           :style="{
@@ -28,16 +28,18 @@ const WaterfallStore = useWaterfallStore();
         <br />
         <br />
       </el-col>
-      <el-col :md="16" :sm="14">
+      <el-col :md="16" :sm="14" >
         <el-form scroll-to-error hide-required-asterisk status-icon>
-          <el-form-item label="Tag:" prop="tag">
+          <el-form-item  prop="tag">
+            <label class="el-form-item__label">Tag:</label>
             <el-input
               v-model="WaterfallStore.imgData.tag"
               class="textarea_infoblock"
               type="textarea"
             />
           </el-form-item>
-          <el-form-item label="Uc:">
+          <el-form-item >
+            <label class="el-form-item__label">Uc:</label>
             <el-input
               v-model="WaterfallStore.imgData.uc"
               class="textarea_infoblock"
@@ -98,4 +100,30 @@ const WaterfallStore = useWaterfallStore();
   </el-dialog>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+
+.el-form-item__label {
+  width: 50px;
+}
+
+.dialog_body {
+    margin: -5px 0 -30px 0px;
+}
+
+@media (max-width: 425px) {
+   .el-form-item__label {
+    width: 120px;
+  }
+    .dialog_body {
+        margin: -30px 0 -30px 0px !important;
+    }
+    .el-form-item__label {
+  width: 35px;
+  display: flex;
+  justify-content: flex-start;
+  }
+
+}
+
+</style>

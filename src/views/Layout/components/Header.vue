@@ -48,7 +48,32 @@ const signup = () => {
   </el-menu>
 </template>
 
-<style lang="scss">
+<style scoped>
+
+@media (max-width: 375px) {
+    .el-menu-item {
+        padding: 0 10px;
+    }
+  }
+
+  @media (max-width: 330px) {
+    .el-slider__runway.show-input,
+    .config_radio-fix-size {
+        display: none;
+    }
+  }
+
+  @media (max-width: 315px) {
+    .el-menu-item {
+        padding: 0 6px;
+        font-size: 13px;
+    }
+    .el-sub-menu__title {
+        padding: 0 10px;
+        padding-right: calc(30px + 7px);
+    }
+}
+
 .flex-grow {
   flex-grow: 1;
 }

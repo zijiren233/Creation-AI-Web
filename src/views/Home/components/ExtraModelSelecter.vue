@@ -59,7 +59,7 @@ async function select(node: any) {
 }
 
 .a {
-  display: flex;
+  display: flex; 
   flex-wrap: wrap;
 }
 
