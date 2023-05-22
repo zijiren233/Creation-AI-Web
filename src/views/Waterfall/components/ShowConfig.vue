@@ -57,23 +57,23 @@ const WaterfallStore = useWaterfallStore();
               }}</el-form-item>
               <el-form-item
                 v-if="
-                  WaterfallStore.currentClickData!.cfg.pre_photo !== undefined
+                  WaterfallStore.currentClickData!.cfg.pre_photo_id !== undefined
                 "
-                label="Prefer Photo:"
+                label="Pre Photo Id:"
                 class="label_infoblock"
                 >{{
-                  WaterfallStore.currentClickData!.cfg.pre_photo
+                  WaterfallStore.currentClickData!.cfg.pre_photo_id
                 }}</el-form-item
               >
               <el-form-item
                 v-if="
-                  WaterfallStore.currentClickData!.cfg.control_photo !==
+                  WaterfallStore.currentClickData!.cfg.control_photo_id !==
                   undefined
                 "
-                label="Control Photo:"
+                label="Control Photo Id:"
                 class="label_infoblock"
                 >{{
-                  WaterfallStore.currentClickData!.cfg.control_photo
+                  WaterfallStore.currentClickData!.cfg.control_photo_id
                 }}</el-form-item
               >
               <el-form-item

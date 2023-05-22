@@ -6,6 +6,7 @@ import ExtraModelSelecter from "@/views/Home/components/ExtraModelSelecter.vue";
 import PrePhoto from "@/views/Home/components/PrePhoto.vue";
 import { drawPost, drawGet } from "@/apis/config.js";
 import type { FormInstance, FormRules } from "element-plus";
+import type { config } from "@/stores/config";
 const ConfigStore = useConfigStore();
 const NotificationStore = useNotificationStore();
 
@@ -33,12 +34,12 @@ const getModels = () => {
 let ratio = ref(0);
 
 function checkSize(rule: any, value: any, callback: any) {
-  ConfigStore.config.width -= ConfigStore.config.width % 8;
+  ConfigStore.config.width! -= ConfigStore.config.width! % 8;
   if (ConfigStore.lockRatio) {
-    ConfigStore.config.height = ConfigStore.config.width * ratio.value;
+    ConfigStore.config.height = ConfigStore.config.width! * ratio.value;
   }
-  ConfigStore.config.height -= ConfigStore.config.height % 8;
-  if (ConfigStore.config.width * ConfigStore.config.height > 1478656) {
+  ConfigStore.config.height! -= ConfigStore.config.height! % 8;
+  if (ConfigStore.config.width! * ConfigStore.config.height! > 1478656) {
     callback(new Error("Total Size: H*W must <= 1478656"));
   } else {
     callback();
@@ -49,13 +50,13 @@ watch(
   () => ConfigStore.lockRatio,
   (v) => {
     if (v) {
-      ratio.value = ConfigStore.config.height / ConfigStore.config.width;
+      ratio.value = ConfigStore.config.height! / ConfigStore.config.width!;
     }
   }
 );
 
 watch(ratio, () => {
-  ConfigStore.config.height = ConfigStore.config.width * ratio.value;
+  ConfigStore.config.height = ConfigStore.config.width! * ratio.value;
 });
 
 function checkTag(rule: any, value: any, callback: any) {
@@ -84,15 +85,10 @@ async function Create() {
       ConfigStore.loading = true;
       drawPost(JSON.stringify(ConfigStore.config))
         .then((res) => {
-          ConfigStore.config.tag = res.data.config.tag;
-          ConfigStore.config.uc = res.data.config.uc;
-          ConfigStore.config.num = res.data.config.num;
-          ConfigStore.config.mode = res.data.config.mode;
-          ConfigStore.config.model = res.data.config.model;
-          ConfigStore.config.width = res.data.config.width;
-          ConfigStore.config.height = res.data.config.height;
-          ConfigStore.config.scale = res.data.config.scale;
-          ConfigStore.config.steps = res.data.config.steps;
+          Object.keys(res.data.config as config).forEach((key) => {
+            (ConfigStore.config as { [key: string]: any })[key] =
+              res.data.config[key];
+          });
           getDraw();
         })
         .catch((error) => {

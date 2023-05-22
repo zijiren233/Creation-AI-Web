@@ -40,7 +40,7 @@ const handlePictureCardPreview = (file: UploadFile) => {
 </script>
 
 <template>
-  <el-form-item label="PrePhoto">
+  <el-form-item label="Pre Photo">
     <el-upload
       ref="upload"
       class="upload-demo"
@@ -82,6 +82,16 @@ const handlePictureCardPreview = (file: UploadFile) => {
         </div>
       </template>
     </el-upload>
+  </el-form-item>
+  <el-form-item label="Strength" v-show="ConfigStore.config.pre_photo! !== ''">
+    <el-input-number
+      v-model.number="ConfigStore.config.strength"
+      :controls="true"
+      :min="0"
+      :max="1"
+      :step="0.05"
+      step-strictly
+    />
   </el-form-item>
   <el-dialog v-model="dialogVisible" align-center width="70%" append-to-body>
     <el-image
