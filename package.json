@@ -12,6 +12,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
     "axios": "^1.4.0",
     "buffer": "^6.0.3",
     "element-plus": "^2.3.4",
@@ -22,6 +23,7 @@
     "swagger-ui": "^4.18.3",
     "swagger-ui-express": "^4.6.3",
     "tsoa": "^5.1.1",
+    "unplugin-icons": "^0.16.1",
     "vue": "^3.3.2",
     "vue-clipboard3": "^2.0.0",
     "vue-router": "^4.2.0",

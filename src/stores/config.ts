@@ -6,6 +6,7 @@ import {
   getExtraModelGroups,
   getExtraModelsWithGroup,
 } from "@/apis/config";
+import type { UploadRawFile } from "element-plus";
 
 interface extraModelsWithGroupInterface {
   [key: string]: extraModelsData[]
@@ -31,6 +32,7 @@ export interface config {
   height: number,
   mode: string,
   model: string,
+  pre_photo: string,
 }
 
 export const useConfigStore = defineStore("config", () => {
@@ -40,7 +42,7 @@ export const useConfigStore = defineStore("config", () => {
 
   const extraModelGroups = ref([]);
   const extraModelsWithGroup = reactive<extraModelsWithGroupInterface>({});
-
+  const prePhoto_UploadRawFile = ref<UploadRawFile>();
   const loading = ref(false);
 
   const lockRatio = ref(false);
@@ -56,6 +58,7 @@ export const useConfigStore = defineStore("config", () => {
     height: 768,
     mode: "",
     model: "",
+    pre_photo: "",
   });
 
   const getAllModes = async () => {
@@ -88,6 +91,7 @@ export const useConfigStore = defineStore("config", () => {
     extraModelGroups,
     extraModelsWithGroup,
     lockRatio,
+    prePhoto_UploadRawFile,
     getAllModes,
     getAllModels,
     getAllExtraModelGroups,

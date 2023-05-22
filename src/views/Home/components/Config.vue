@@ -3,6 +3,7 @@ import { ref, onMounted, watch, watchEffect } from "vue";
 import { useConfigStore } from "@/stores/config.js";
 import { useNotificationStore } from "@/stores/notification.js";
 import ExtraModelSelecter from "@/views/Home/components/ExtraModelSelecter.vue";
+import PrePhoto from "@/views/Home/components/PrePhoto.vue";
 import { drawPost, drawGet } from "@/apis/config.js";
 import type { FormInstance, FormRules } from "element-plus";
 const ConfigStore = useConfigStore();
@@ -261,6 +262,7 @@ async function getDraw() {
         step-strictly
       />
     </el-form-item>
+    <PrePhoto></PrePhoto>
     <ExtraModelSelecter></ExtraModelSelecter>
     <el-form-item class="button_config">
       <label class="el-form-item__label"></label>

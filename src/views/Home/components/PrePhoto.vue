@@ -1,82 +1,96 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
+import { genFileId } from "element-plus";
+import type {
+  UploadInstance,
+  UploadProps,
+  UploadRawFile,
+  UploadFile,
+} from "element-plus";
+import { UploadFilled, ZoomIn, Delete } from "@element-plus/icons-vue";
 import { useConfigStore } from "@/stores/config.js";
+import { file2Base64 } from "@/utile/utils";
 const ConfigStore = useConfigStore();
-const itemLoading = ref(false);
-onMounted(() => {
-  if (ConfigStore.extraModelGroups.length === 0) {
-    ConfigStore.getAllExtraModelGroups();
-  }
-});
-const currentGroup = ref("");
-async function select(node: any) {
-  itemLoading.value = false;
-  const group = node;
-  if (
-    ConfigStore.extraModelsWithGroup[group] === undefined ||
-    ConfigStore.extraModelsWithGroup[group].length === 0
-  ) {
-    await ConfigStore.getAllExtraModelsWithGroup(group);
-  }
-  currentGroup.value = group;
-  itemLoading.value = true;
-}
+
+const upload = ref<UploadInstance>();
+const handleExceed: UploadProps["onExceed"] = (files) => {
+  upload.value!.clearFiles();
+
+  ConfigStore.prePhoto_UploadRawFile = files[0] as UploadRawFile;
+  ConfigStore.prePhoto_UploadRawFile.uid = genFileId();
+  upload.value!.handleStart(ConfigStore.prePhoto_UploadRawFile);
+};
+
+const handleChange: UploadProps["onChange"] = (uploadFile, uploadFiles) => {
+  file2Base64(uploadFile.raw!).then((base64) => {
+    ConfigStore.config.pre_photo = base64;
+  });
+};
+
+const handleRemove = (file: UploadFile) => {
+  upload.value!.clearFiles();
+  ConfigStore.config.pre_photo = "";
+};
+const dialogImageUrl = ref("");
+const dialogVisible = ref(false);
+const handlePictureCardPreview = (file: UploadFile) => {
+  dialogImageUrl.value = file.url!;
+  dialogVisible.value = true;
+};
 </script>
 
 <template>
-  <div>
-    <el-form-item>
-      <el-select
-        v-model="currentGroup"
-        class="m-2"
-        placeholder="Select"
-        size="large"
-      >
-        <el-option
-          v-for="item in ConfigStore.extraModelGroups"
-          :key="item"
-          :value="item"
-          @click="select(item)"
-        />
-      </el-select>
-    </el-form-item>
-    <el-scrollbar height="55vh" v-if="itemLoading">
-      <div class="a">
-        <el-card
-          class="box-card"
-          :body-style="{ padding: '0px' }"
-          v-for="item in ConfigStore.extraModelsWithGroup[currentGroup]"
-          :key="item.Name"
-        >
-          <img :src="item.Preview" style="width: 100%" />
-          <div style="padding: 14px">{{ item.Name }}</div>
-        </el-card>
+  <el-form-item label="PrePhoto">
+    <el-upload
+      ref="upload"
+      class="upload-demo"
+      accept="image/png,image/jpg,image/jpeg"
+      action="#"
+      drag
+      :auto-upload="false"
+      list-type="picture-card"
+      :limit="1"
+      :on-exceed="handleExceed"
+      :on-change="handleChange"
+    >
+      <el-icon :size="30" class="el-icon--upload"><upload-filled /></el-icon>
+      <div class="el-upload__text">
+        <em>click to upload</em>
       </div>
-    </el-scrollbar>
-  </div>
+      <template #tip>
+        <div class="el-upload__tip">
+          jpg/png files with a size less than 3Mb
+        </div>
+      </template>
+      <template #file="{ file }">
+        <div>
+          <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
+          <span class="el-upload-list__item-actions">
+            <span
+              class="el-upload-list__item-preview"
+              @click="handlePictureCardPreview(file)"
+            >
+              <el-icon><zoom-in /></el-icon>
+            </span>
+            <span
+              class="el-upload-list__item-delete"
+              @click="handleRemove(file)"
+            >
+              <el-icon><Delete /></el-icon>
+            </span>
+          </span>
+        </div>
+      </template>
+    </el-upload>
+  </el-form-item>
+  <el-dialog v-model="dialogVisible" align-center width="70%" append-to-body>
+    <el-image
+      fit="contain"
+      w-full
+      :src="dialogImageUrl"
+      alt="Preview Image"
+    ></el-image>
+  </el-dialog>
 </template>
 
-<style scoped>
-.box-card {
-  width: 18%;
-  display: block;
-  margin: 10px;
-}
-
-.a {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-@media (max-width: 1100px) {
-  .box-card {
-    width: 28%;
-  }
-}
-
-@media (max-width: 453px) {
-  .box-card {
-    width: 43%;
-  }
-}
-</style>
+<style scoped></style>
