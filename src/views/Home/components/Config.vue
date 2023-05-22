@@ -4,15 +4,12 @@ import { useConfigStore } from "@/stores/config.js";
 import { useNotificationStore } from "@/stores/notification.js";
 import ExtraModelSelecter from "@/views/Home/components/ExtraModelSelecter.vue";
 import { drawPost, drawGet } from "@/apis/config.js";
-import { useAuthStore } from "@/stores/auth.js";
 import type { FormInstance, FormRules } from "element-plus";
 const ConfigStore = useConfigStore();
 const NotificationStore = useNotificationStore();
-const AuthStore = useAuthStore();
 
 const modesLoading = ref(true);
 const modelsLoading = ref(true);
-const extraModelSwitch = ref(false);
 
 const getModes = () => {
   if (ConfigStore.modes.length === 0) {
@@ -150,7 +147,6 @@ async function getDraw() {
   <el-form
     ref="formRef"
     :model="ConfigStore.config"
-
     :rules="rules"
     scroll-to-error
     hide-required-asterisk
@@ -265,13 +261,10 @@ async function getDraw() {
         step-strictly
       />
     </el-form-item>
-    <el-form-item label="Extra Model">
-      <el-switch v-model="extraModelSwitch" />
-    </el-form-item>
-    <ExtraModelSelecter v-if="extraModelSwitch" class="config_extra-model-selecter"></ExtraModelSelecter>
-    <br />
-    <el-form-item class="button_config" >
-      <el-button type="primary" :style="{'margin':'0px 0 0 120px'}" @click="Create">Create</el-button>
+    <ExtraModelSelecter></ExtraModelSelecter>
+    <el-form-item class="button_config">
+      <label class="el-form-item__label"></label>
+      <el-button type="primary" @click="Create">Create</el-button>
     </el-form-item>
   </el-form>
 </template>

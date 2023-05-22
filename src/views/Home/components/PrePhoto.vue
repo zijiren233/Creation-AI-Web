@@ -3,15 +3,11 @@ import { onMounted, ref } from "vue";
 import { useConfigStore } from "@/stores/config.js";
 const ConfigStore = useConfigStore();
 const itemLoading = ref(false);
-const groupLoading = ref(true);
-const showExtraModelGroups = ref(false);
-
-const getExtraModelGroup = async () => {
+onMounted(() => {
   if (ConfigStore.extraModelGroups.length === 0) {
-    await ConfigStore.getAllExtraModelGroups();
-    groupLoading.value = false;
+    ConfigStore.getAllExtraModelGroups();
   }
-};
+});
 const currentGroup = ref("");
 async function select(node: any) {
   itemLoading.value = false;
@@ -28,28 +24,24 @@ async function select(node: any) {
 </script>
 
 <template>
-  <el-form-item label="Extra Model">
-    <el-switch v-model="showExtraModelGroups"></el-switch>
-  </el-form-item>
-  <el-form-item v-show="showExtraModelGroups">
-    <label class="el-form-item__label"></label>
-    <el-select
-      v-model="currentGroup"
-      class="select"
-      placeholder="Select"
-      size="large"
-      :loading="groupLoading"
-      @focus="getExtraModelGroup"
-    >
-      <el-option
-        v-for="item in ConfigStore.extraModelGroups"
-        :key="item"
-        :value="item"
-        @click="select(item)"
-      />
-    </el-select>
+  <div>
+    <el-form-item>
+      <el-select
+        v-model="currentGroup"
+        class="m-2"
+        placeholder="Select"
+        size="large"
+      >
+        <el-option
+          v-for="item in ConfigStore.extraModelGroups"
+          :key="item"
+          :value="item"
+          @click="select(item)"
+        />
+      </el-select>
+    </el-form-item>
     <el-scrollbar height="55vh" v-if="itemLoading">
-      <div class="scrollbar">
+      <div class="a">
         <el-card
           class="box-card"
           :body-style="{ padding: '0px' }"
@@ -61,7 +53,7 @@ async function select(node: any) {
         </el-card>
       </div>
     </el-scrollbar>
-  </el-form-item>
+  </div>
 </template>
 
 <style scoped>
@@ -71,13 +63,9 @@ async function select(node: any) {
   margin: 10px;
 }
 
-.scrollbar {
+.a {
   display: flex;
   flex-wrap: wrap;
-}
-
-.select {
-  margin-bottom: 20px;
 }
 
 @media (max-width: 1100px) {
