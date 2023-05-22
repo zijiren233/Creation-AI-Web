@@ -1,5 +1,3 @@
-
-
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
@@ -8,7 +6,6 @@ import router from './router'
 
 import './assets/reset.css'
 import './assets/style.css'
-
 
 
 const app = createApp(App)
