@@ -28,10 +28,12 @@ async function select(node: any) {
 </script>
 
 <template>
-  <el-form-item label="Extra Model">
+  <el-form-item>
+    <label class="el-form-item__label">Extra Model</label>
+
     <el-switch v-model="showExtraModelGroups"></el-switch>
   </el-form-item>
-  <el-form-item v-show="showExtraModelGroups">
+  <el-form-item v-show="showExtraModelGroups" class="extra_models_content">
     <label class="el-form-item__label"></label>
     <el-select
       v-model="currentGroup"
@@ -65,19 +67,35 @@ async function select(node: any) {
 </template>
 
 <style scoped>
+
+.scrollbar{
+  margin-left: 120px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.el-form-item__label {
+  width: 120px;
+}
+@media (max-width: 425px) {
+  .scrollbar{
+  margin-left: 70px;
+
+}
+    .el-form-item__label {
+    width: 70px;
+    display: flex;
+    justify-content: flex-start;
+  }
+} 
 .box-card {
   width: 18%;
   display: block;
   margin: 10px;
 }
 
-.scrollbar {
-  display: flex;
+.a {
+  display: flex; 
   flex-wrap: wrap;
-}
-
-.select {
-  margin-bottom: 20px;
 }
 
 @media (max-width: 1100px) {

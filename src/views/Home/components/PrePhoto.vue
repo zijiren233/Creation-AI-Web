@@ -40,7 +40,8 @@ const handlePictureCardPreview = (file: UploadFile) => {
 </script>
 
 <template>
-  <el-form-item label="Pre Photo">
+  <el-form-item>
+    <label class="el-form-item__label">Pre Photo</label>
     <el-upload
       ref="upload"
       class="upload-demo"
@@ -83,7 +84,8 @@ const handlePictureCardPreview = (file: UploadFile) => {
       </template>
     </el-upload>
   </el-form-item>
-  <el-form-item label="Strength" v-show="ConfigStore.config.pre_photo! !== ''">
+  <el-form-item v-show="ConfigStore.config.pre_photo! !== ''">
+    <label class="el-form-item__label">Strength</label>
     <el-input-number
       v-model.number="ConfigStore.config.strength"
       :controls="true"
@@ -103,4 +105,17 @@ const handlePictureCardPreview = (file: UploadFile) => {
   </el-dialog>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+.el-form-item__label {
+  width: 120px;
+}
+@media (max-width: 425px) {
+    .el-form-item__label {
+    width: 70px;
+    display: flex;
+    justify-content: flex-start;
+  }
+} 
+
+</style>
