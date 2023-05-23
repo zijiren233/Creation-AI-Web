@@ -76,7 +76,7 @@ function Save() {
 
 @media (max-width: 425px) {
   .el-form-item__label {
-    width: 70px;
+    width: 64px;
     display: flex;
     justify-content: flex-start;
   }
@@ -84,7 +84,7 @@ function Save() {
 
 @media (max-width: 375px) {
   .login_button {
-    margin: 0 0 0 70px;
+    margin: 0 0 0 64px;
   }
 }
 </style>

@@ -322,7 +322,7 @@ async function getDraw() {
     justify-content: flex-start;
   }
   .button_config {
-    margin-left: 70px !important;
+    margin-left: 64px !important;
   }
 }
 
