@@ -103,6 +103,15 @@ function openImgModal(data: any) {
 </template>
 
 <style scoped>
+
+
+
+.demo-image {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .demo-image .block {
   padding: 15px;
   text-align: center;
@@ -125,6 +134,10 @@ function openImgModal(data: any) {
 }
 .img:hover {
   box-shadow: var(--el-box-shadow-light);
+}
+
+.footer_list{
+font-size: 12px;
 }
 
 @media (max-width: 960px) {
