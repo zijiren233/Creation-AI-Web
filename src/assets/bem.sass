@@ -1,0 +1,20 @@
+$namespace: 'cai' !default
+$block-sel: '-' !default
+$elem-sel: '__' !default
+$mod-sel: '--' !default
+
+@mixin b($block)
+    .#{$namespace+$block-sel+$block}
+        @content
+
+@mixin e($el)
+    $selecter: &
+    @at-root
+        #{$selecter+$elem-sel+$el}
+            @content
+
+@mixin m($m)
+    $selecter: &
+    @at-root
+        #{$selecter+$mod-sel+$m}
+            @content

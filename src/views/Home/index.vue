@@ -5,7 +5,7 @@ import ShowImages from "@/views/Home/components/ShowImages.vue";
 
 const imgData = ref<string[]>([]);
 function pushImg(data: string[]) {
-  imgData.value.unshift(...data.map(item => "data:image/png;base64," + item));
+  imgData.value.unshift(...data.map((item) => "data:image/png;base64," + item));
 }
 </script>
 

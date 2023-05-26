@@ -6,24 +6,28 @@ interface Auth {
   password: string;
 }
 
-export const useAuthStore = defineStore("auth", () => {
-  const auth = ref<Auth>({
-    username: '',
-    password: ''
-  });
-  function login(username: string, password: string) {
-    auth.value.username = username;
-    auth.value.password = password;
+export const useAuthStore = defineStore(
+  "auth",
+  () => {
+    const auth = ref<Auth>({
+      username: "",
+      password: "",
+    });
+    function login(username: string, password: string) {
+      auth.value.username = username;
+      auth.value.password = password;
+    }
+    function signout() {
+      auth.value.username = "";
+      auth.value.password = "";
+    }
+    return {
+      auth,
+      login,
+      signout,
+    };
+  },
+  {
+    persist: true,
   }
-  function signout() {
-    auth.value.username = ""
-    auth.value.password = ""
-  }
-  return {
-    auth,
-    login,
-    signout
-  };
-}, {
-  persist: true
-});
+);

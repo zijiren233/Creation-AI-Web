@@ -1,6 +1,6 @@
 import { ref, reactive } from "vue";
 import { defineStore } from "pinia";
-import { ElNotification } from "element-plus"
+import { ElNotification } from "element-plus";
 
 export const useNotificationStore = defineStore("notification", () => {
   function notification(title: string, message: string, duration: number) {

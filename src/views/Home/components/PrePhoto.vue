@@ -106,16 +106,14 @@ const handlePictureCardPreview = (file: UploadFile) => {
 </template>
 
 <style scoped>
-
 .el-form-item__label {
   width: 120px;
 }
 @media (max-width: 425px) {
-    .el-form-item__label {
+  .el-form-item__label {
     width: 70px;
     display: flex;
     justify-content: flex-start;
   }
-} 
-
+}
 </style>

@@ -67,8 +67,7 @@ async function select(node: any) {
 </template>
 
 <style scoped>
-
-.scrollbar{
+.scrollbar {
   margin-left: 120px;
   display: flex;
   flex-wrap: wrap;
@@ -77,16 +76,15 @@ async function select(node: any) {
   width: 120px;
 }
 @media (max-width: 425px) {
-  .scrollbar{
-  margin-left: 70px;
-
-}
-    .el-form-item__label {
+  .scrollbar {
+    margin-left: 70px;
+  }
+  .el-form-item__label {
     width: 70px;
     display: flex;
     justify-content: flex-start;
   }
-} 
+}
 .box-card {
   width: 18%;
   display: block;
@@ -94,7 +92,7 @@ async function select(node: any) {
 }
 
 .a {
-  display: flex; 
+  display: flex;
   flex-wrap: wrap;
 }
 

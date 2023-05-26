@@ -103,13 +103,10 @@ function openImgModal(data: any) {
 </template>
 
 <style scoped>
-
-
-
 .demo-image {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .demo-image .block {
@@ -136,8 +133,8 @@ function openImgModal(data: any) {
   box-shadow: var(--el-box-shadow-light);
 }
 
-.footer_list{
-font-size: 12px;
+.footer_list {
+  font-size: 12px;
 }
 
 @media (max-width: 960px) {
