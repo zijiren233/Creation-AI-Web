@@ -21,6 +21,8 @@ const getModes = () => {
       await ConfigStore.getAllModes();
       modesLoading.value = false;
     })();
+  } else {
+    modesLoading.value = false;
   }
 };
 
@@ -30,6 +32,8 @@ const getModels = () => {
       await ConfigStore.getAllModels();
       modelsLoading.value = false;
     })();
+  } else {
+    modelsLoading.value = false;
   }
 };
 

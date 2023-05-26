@@ -46,7 +46,7 @@ export const useConfigStore = defineStore("config", () => {
 
   const models = ref([]);
 
-  const extraModelGroups = ref([]);
+  const extraModelGroups = ref<string[]>([]);
   const extraModelsWithGroup = reactive<extraModelsWithGroupInterface>({});
   const prePhoto_UploadRawFile = ref<UploadRawFile>();
   const loading = ref(false);

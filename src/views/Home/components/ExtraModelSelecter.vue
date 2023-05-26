@@ -2,7 +2,7 @@
 import { onMounted, ref } from "vue";
 import { useConfigStore } from "@/stores/config.js";
 const ConfigStore = useConfigStore();
-const itemLoading = ref(false);
+const itemLoading = ref(true);
 const groupLoading = ref(true);
 const showExtraModelGroups = ref(false);
 
@@ -10,20 +10,22 @@ const getExtraModelGroup = async () => {
   if (ConfigStore.extraModelGroups.length === 0) {
     await ConfigStore.getAllExtraModelGroups();
     groupLoading.value = false;
+  } else {
+    groupLoading.value = false;
   }
 };
 const currentGroup = ref("");
-async function select(node: any) {
-  itemLoading.value = false;
-  const group = node;
+async function select(group: string) {
+  currentGroup.value = group;
   if (
     ConfigStore.extraModelsWithGroup[group] === undefined ||
     ConfigStore.extraModelsWithGroup[group].length === 0
   ) {
     await ConfigStore.getAllExtraModelsWithGroup(group);
+    itemLoading.value = false;
+  } else {
+    itemLoading.value = false;
   }
-  currentGroup.value = group;
-  itemLoading.value = true;
 }
 </script>
 
@@ -50,7 +52,7 @@ async function select(node: any) {
         @click="select(item)"
       />
     </el-select>
-    <el-scrollbar height="55vh" v-if="itemLoading">
+    <el-scrollbar height="55vh" v-if="!itemLoading">
       <div class="scrollbar">
         <el-card
           class="box-card"
