@@ -8,6 +8,7 @@ import PrePhoto from "@/views/Home/components/PrePhoto.vue";
 import { drawPost, drawGet } from "@/apis/config.js";
 import type { FormInstance, FormRules } from "element-plus";
 import type { config } from "@/stores/config";
+import { inItems } from "@/utile/utils";
 const ConfigStore = useConfigStore();
 const NotificationStore = useNotificationStore();
 
@@ -77,6 +78,8 @@ const formRef = ref<FormInstance>();
 
 const code = ref<string>("success");
 
+const dontReplace = <string[]>["seed"];
+
 async function Create() {
   formRef.value?.validate((valid) => {
     if (valid) {
@@ -86,8 +89,14 @@ async function Create() {
       drawPost(JSON.stringify(ConfigStore.config))
         .then((res) => {
           Object.keys(res.data.config as config).forEach((key) => {
-            (ConfigStore.config as { [key: string]: any })[key] =
-              res.data.config[key];
+            if (
+              !inItems(dontReplace, (val: string) => {
+                return key === val;
+              })
+            ) {
+              (ConfigStore.config as { [key: string]: any })[key] =
+                res.data.config[key];
+            }
           });
           getDraw();
         })

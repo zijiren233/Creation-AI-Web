@@ -18,3 +18,7 @@ export async function file2Base64(file: File): Promise<string> {
     reader.onerror = (error) => reject(error);
   });
 }
+
+export function inItems<T>(items: T[], func: (item: T) => boolean): boolean {
+  return items.find((item) => func(item)) !== undefined;
+}
