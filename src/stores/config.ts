@@ -71,6 +71,8 @@ export const useConfigStore = defineStore("config", () => {
     control_process: "",
   });
 
+  const creatStatus = ref<number>(0);
+
   const getAllModes = async () => {
     const res = await getModes();
     modes.value = res.data;
@@ -102,6 +104,7 @@ export const useConfigStore = defineStore("config", () => {
     extraModelsWithGroup,
     lockRatio,
     prePhoto_UploadRawFile,
+    creatStatus,
     getAllModes,
     getAllModels,
     getAllExtraModelGroups,

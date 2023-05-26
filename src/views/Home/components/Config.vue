@@ -2,6 +2,7 @@
 import { ref, onMounted, watch, watchEffect } from "vue";
 import { useConfigStore } from "@/stores/config.js";
 import { useNotificationStore } from "@/stores/notification.js";
+import { useShowImagesStore } from "@/stores/showImages.js";
 import ExtraModelSelecter from "@/views/Home/components/ExtraModelSelecter.vue";
 import PrePhoto from "@/views/Home/components/PrePhoto.vue";
 import { drawPost, drawGet } from "@/apis/config.js";
@@ -74,13 +75,12 @@ const rules: FormRules = {
 
 const formRef = ref<FormInstance>();
 
-const status = ref<number>(0);
 const code = ref<string>("success");
 
 async function Create() {
   formRef.value?.validate((valid) => {
     if (valid) {
-      status.value = 0.01;
+      ConfigStore.creatStatus = 0.01;
       code.value = "success";
       ConfigStore.loading = true;
       drawPost(JSON.stringify(ConfigStore.config))
@@ -108,20 +108,20 @@ async function Create() {
   });
 }
 
-const emits = defineEmits(["pushImg"]);
+const ShowImagesStore = useShowImagesStore();
 
 async function getDraw() {
   const res = await drawGet();
   if (res.err === "re long polling") {
-    status.value = res.data;
+    ConfigStore.creatStatus = res.data;
     getDraw();
     return;
   } else if (res.err !== undefined) {
     code.value = "exception";
     NotificationStore.error(res.err, 3000);
   } else {
-    status.value = 1;
-    emits("pushImg", res.data);
+    ConfigStore.creatStatus = 0;
+    ShowImagesStore.pushImg(res.data);
     NotificationStore.success("Success", 3000);
   }
   ConfigStore.loading = false;
@@ -132,14 +132,14 @@ async function getDraw() {
   <div class="config_position_progress">
     <div class="demo-progress">
       <el-progress
-        v-show="status"
+        v-show="ConfigStore.creatStatus"
         :text-inside="true"
         :stroke-width="24"
         :class="{
           status: code,
         }"
         :style="{ 'margin-bottom': '20px' }"
-        :percentage="status * 100"
+        :percentage="ConfigStore.creatStatus * 100"
       />
     </div>
     <el-form

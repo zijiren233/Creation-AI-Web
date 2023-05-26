@@ -1,25 +1,27 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-const props = defineProps<{
-  imgData: string[];
-}>();
+import { useShowImagesStore } from "@/stores/showImages.js";
+
+const ShowImagesStore = useShowImagesStore();
 </script>
 
 <template>
   <el-carousel :interval="10000" type="card" height="400px">
-    <el-carousel-item v-for="(item, index) in imgData" :key="index">
+    <el-carousel-item
+      v-for="(item, index) in ShowImagesStore.imgData"
+      :key="index"
+    >
       <el-image
         style="width: 100%; height: 100%"
         :src="item"
         fit="contain"
         loading="lazy"
         preview-teleported
-        :preview-src-list="imgData"
+        :preview-src-list="ShowImagesStore.imgData"
         :initial-index="index"
         hide-on-click-modal
       ></el-image>
     </el-carousel-item>
-    <el-carousel-item v-if="imgData.length === 0">
+    <el-carousel-item v-if="ShowImagesStore.imgData.length === 0">
       <el-skeleton style="width: 100%">
         <template #template>
           <el-skeleton-item

@@ -12,7 +12,9 @@ import Footer from "@/views/Layout/components/Footer.vue";
         <Nav></Nav>
       </el-header>
       <el-main>
-        <RouterView />
+        <keep-alive include="home">
+          <RouterView />
+        </keep-alive>
       </el-main>
       <el-footer>
         <Footer></Footer>
