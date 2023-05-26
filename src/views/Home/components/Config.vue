@@ -33,7 +33,7 @@ const getModels = () => {
   }
 };
 
-let ratio = ref(0);
+let ratio = ref<number>(ConfigStore.config.height! / ConfigStore.config.width!);
 
 function checkSize(rule: any, value: any, callback: any) {
   ConfigStore.config.width! -= ConfigStore.config.width! % 8;
