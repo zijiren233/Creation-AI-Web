@@ -12,6 +12,18 @@ export function getModels() {
   });
 }
 
+export function getCtrlPreprocess() {
+  return httpInstanse({
+    url: "control-preprocess",
+  });
+}
+
+export function getCtrlProcess() {
+  return httpInstanse({
+    url: "control-process",
+  });
+}
+
 export function getExtraModelGroups() {
   return httpInstanse({
     url: "/extra-model-groups",

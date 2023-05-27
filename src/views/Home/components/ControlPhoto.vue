@@ -12,6 +12,31 @@ import { useConfigStore } from "@/stores/config.js";
 import { file2Base64 } from "@/utile/utils";
 const ConfigStore = useConfigStore();
 
+const preProcessLoading = ref(true);
+const processLoading = ref(true);
+
+const getPreProcess = () => {
+  if (ConfigStore.PreProcess.length === 0) {
+    (async () => {
+      await ConfigStore.getAllPreProcess();
+      preProcessLoading.value = false;
+    })();
+  } else {
+    preProcessLoading.value = false;
+  }
+};
+
+const getProcess = () => {
+  if (ConfigStore.Process.length === 0) {
+    (async () => {
+      await ConfigStore.getAllProcess();
+      processLoading.value = false;
+    })();
+  } else {
+    processLoading.value = false;
+  }
+};
+
 const upload = ref<UploadInstance>();
 const handleExceed: UploadProps["onExceed"] = (files) => {
   upload.value!.clearFiles();
@@ -22,24 +47,24 @@ const handleExceed: UploadProps["onExceed"] = (files) => {
 
 const handleChange: UploadProps["onChange"] = (uploadFile, uploadFiles) => {
   file2Base64(uploadFile.raw!).then((base64) => {
-    ConfigStore.config.pre_photo = base64;
+    ConfigStore.config.control_photo = base64;
   });
 };
 
 const handleRemove = (file: UploadFile) => {
   upload.value!.clearFiles();
-  ConfigStore.config.pre_photo = "";
+  ConfigStore.config.control_photo = "";
 };
 const dialogVisible = ref(false);
 
-const prePhoto = computed(() => {
-  return "data:image/png;base64," + ConfigStore.config.pre_photo;
+const controlPhoto = computed(() => {
+  return "data:image/png;base64," + ConfigStore.config.control_photo;
 });
 </script>
 
 <template>
   <el-form-item>
-    <label class="el-form-item__label">Pre Photo</label>
+    <label class="el-form-item__label">Control Photo</label>
     <el-upload
       ref="upload"
       class="upload-demo"
@@ -48,7 +73,7 @@ const prePhoto = computed(() => {
       drag
       :auto-upload="false"
       list-type="picture-card"
-      v-model:file-list="ConfigStore.prePhoto_UploadUserFile"
+      v-model:file-list="ConfigStore.controlPhoto_UploadUserFile"
       :limit="1"
       :on-exceed="handleExceed"
       :on-change="handleChange"
@@ -64,7 +89,11 @@ const prePhoto = computed(() => {
       </template>
       <template #file="{ file }">
         <div>
-          <img class="el-upload-list__item-thumbnail" :src="prePhoto" alt="" />
+          <img
+            class="el-upload-list__item-thumbnail"
+            :src="controlPhoto"
+            alt=""
+          />
           <span class="el-upload-list__item-actions">
             <span
               class="el-upload-list__item-preview"
@@ -83,23 +112,46 @@ const prePhoto = computed(() => {
       </template>
     </el-upload>
   </el-form-item>
-  <el-form-item v-show="ConfigStore.config.pre_photo! !== ''">
-    <label class="el-form-item__label">Strength</label>
-    <el-input-number
-      v-model.number="ConfigStore.config.strength"
-      :controls="true"
-      :min="0"
-      :max="1"
-      :step="0.05"
-      step-strictly
-    />
+  <el-form-item required v-show="ConfigStore.config.control_photo! !== ''">
+    <label class="el-form-item__label">Pre Process</label>
+    <el-select
+      @focus="getPreProcess"
+      :loading="preProcessLoading"
+      v-model="ConfigStore.config.control_preprocess"
+      class="m-2"
+      placeholder="Pre Process"
+      size="large"
+    >
+      <el-option
+        v-for="(item, index) in ConfigStore.PreProcess"
+        :key="index"
+        :value="item"
+      />
+    </el-select>
+  </el-form-item>
+  <el-form-item required v-show="ConfigStore.config.control_photo! !== ''">
+    <label class="el-form-item__label">Process</label>
+    <el-select
+      @focus="getProcess"
+      :loading="processLoading"
+      v-model="ConfigStore.config.control_process"
+      class="m-2"
+      placeholder="Process"
+      size="large"
+    >
+      <el-option
+        v-for="(item, index) in ConfigStore.Process"
+        :key="index"
+        :value="item"
+      />
+    </el-select>
   </el-form-item>
   <el-dialog v-model="dialogVisible" align-center width="70%" append-to-body>
     <el-image
       fit="contain"
       w-full
-      :src="prePhoto"
-      alt="Preview Pre Photo"
+      :src="controlPhoto"
+      alt="Preview Control Photo"
     ></el-image>
   </el-dialog>
 </template>

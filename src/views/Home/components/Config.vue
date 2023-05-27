@@ -5,6 +5,7 @@ import { useNotificationStore } from "@/stores/notification.js";
 import { useShowImagesStore } from "@/stores/showImages.js";
 import ExtraModelSelecter from "@/views/Home/components/ExtraModelSelecter.vue";
 import PrePhoto from "@/views/Home/components/PrePhoto.vue";
+import ControlPhoto from "@/views/Home/components/ControlPhoto.vue";
 import { drawPost, drawGet } from "@/apis/config.js";
 import type { FormInstance, FormRules } from "element-plus";
 import type { config } from "@/stores/config";
@@ -285,6 +286,7 @@ async function getDraw() {
         />
       </el-form-item>
       <PrePhoto></PrePhoto>
+      <ControlPhoto></ControlPhoto>
       <ExtraModelSelecter
         class="config_extra-model-selecter"
       ></ExtraModelSelecter>

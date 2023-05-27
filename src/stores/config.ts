@@ -5,8 +5,10 @@ import {
   getModels,
   getExtraModelGroups,
   getExtraModelsWithGroup,
+  getCtrlPreprocess,
+  getCtrlProcess,
 } from "@/apis/config";
-import type { UploadRawFile } from "element-plus";
+import type { UploadUserFile } from "element-plus";
 
 interface extraModelsData {
   Name: string;
@@ -45,10 +47,13 @@ export const useConfigStore = defineStore("config", () => {
   const modes = ref([]);
 
   const models = ref([]);
+  const PreProcess = ref([]);
+  const Process = ref([]);
 
   const extraModelGroups = ref<string[]>([]);
   const extraModelsWithGroup = reactive<extraModelsWithGroupInterface>({});
-  const prePhoto_UploadRawFile = ref<UploadRawFile>();
+  const prePhoto_UploadUserFile = ref<UploadUserFile[]>();
+  const controlPhoto_UploadUserFile = ref<UploadUserFile[]>();
   const loading = ref(false);
 
   const lockRatio = ref(false);
@@ -79,6 +84,18 @@ export const useConfigStore = defineStore("config", () => {
     config.mode = modes.value.at(0)!;
   };
 
+  const getAllPreProcess = async () => {
+    const res = await getCtrlPreprocess();
+    PreProcess.value = res.data;
+    config.control_preprocess = PreProcess.value.at(0)!;
+  };
+
+  const getAllProcess = async () => {
+    const res = await getCtrlProcess();
+    Process.value = res.data;
+    config.control_process = Process.value.at(0)!;
+  };
+
   const getAllModels = async () => {
     const res = await getModels();
     models.value = res.data;
@@ -98,15 +115,20 @@ export const useConfigStore = defineStore("config", () => {
   return {
     modes,
     models,
+    PreProcess,
+    Process,
     loading,
     config,
     extraModelGroups,
     extraModelsWithGroup,
     lockRatio,
-    prePhoto_UploadRawFile,
+    prePhoto_UploadUserFile,
+    controlPhoto_UploadUserFile,
     creatStatus,
     getAllModes,
     getAllModels,
+    getAllPreProcess,
+    getAllProcess,
     getAllExtraModelGroups,
     getAllExtraModelsWithGroup,
   };
