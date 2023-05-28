@@ -36,4 +36,8 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    cssCodeSplit: true,
+    minify: "terser",
+  },
 });
