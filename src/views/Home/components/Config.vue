@@ -317,7 +317,7 @@ async function getDraw() {
 
 @media (max-width: 425px) {
   .el-form-item__label {
-    width: 70px;
+    width: 64px;
     display: flex;
     justify-content: flex-start;
   }

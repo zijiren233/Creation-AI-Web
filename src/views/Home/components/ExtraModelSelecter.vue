@@ -82,7 +82,7 @@ async function select(group: string) {
     margin-left: 70px;
   }
   .el-form-item__label {
-    width: 70px;
+    width: 64px;
     display: flex;
     justify-content: flex-start;
   }

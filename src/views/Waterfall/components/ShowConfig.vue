@@ -4,6 +4,8 @@ import { useWaterfallStore } from "@/stores/waterfall";
 import { stringify } from "yaml";
 
 const WaterfallStore = useWaterfallStore();
+
+
 </script>
 
 <template>
@@ -35,6 +37,7 @@ const WaterfallStore = useWaterfallStore();
               v-model="WaterfallStore.currentClickData!.cfg.tag"
               class="textarea_infoblock"
               type="textarea"
+              
             />
           </el-form-item>
           <el-form-item>
@@ -43,98 +46,60 @@ const WaterfallStore = useWaterfallStore();
               v-model="WaterfallStore.currentClickData!.cfg.uc"
               class="textarea_infoblock"
               type="textarea"
+              
             />
           </el-form-item>
           <el-row>
             <el-col :span="12">
-              <el-form-item class="label_infoblock">
-                <label class="el-form-item__label width">Steps:</label
-                >{{ WaterfallStore.currentClickData!.cfg.steps }}</el-form-item
-              >
-              <el-form-item class="label_infoblock">
-                <label class="el-form-item__label width">Scale:</label
-                >{{ WaterfallStore.currentClickData!.cfg.scale }}</el-form-item
-              >
 
               <el-form-item class="label_infoblock">
-                <label class="el-form-item__label width">Mode:</label
-                >{{ WaterfallStore.currentClickData!.cfg.mode }}</el-form-item
-              >
+                <label class="el-form-item__label width">Steps:</label
+                ><el-input v-model="WaterfallStore.currentClickData!.cfg.steps"/>
+              </el-form-item>
+
+              <el-form-item class="label_infoblock">
+                <label class="el-form-item__label width">Scale:</label>
+                <el-input v-model="WaterfallStore.currentClickData!.cfg.scale"/>
+              </el-form-item>
+
+              <el-form-item class="label_infoblock">
+                <label class="el-form-item__label width">Mode:</label>
+                <el-input v-model="WaterfallStore.currentClickData!.cfg.mode"/>
+              </el-form-item>
+
+
               <el-form-item
-                v-if="
-                  WaterfallStore.currentClickData!.cfg.pre_photo_id !== undefined
-                "
-                class="label_infoblock"
-              >
-                <label class="el-form-item__label hei">Pre Photo Id:</label
-                >{{
-                  WaterfallStore.currentClickData!.cfg.pre_photo_id
-                }}</el-form-item
-              >
-              <el-form-item
-                v-if="
+                v-if=" 
                   WaterfallStore.currentClickData!.cfg.control_photo_id !==
                   undefined
                 "
-                class="label_infoblock"
-                ><label class="el-form-item__label">Control Photo Id:</label
-                >{{
-                  WaterfallStore.currentClickData!.cfg.control_photo_id
-                }}</el-form-item
-              >
-            </el-col>
+                class="label_infoblock">
+                <label class="el-form-item__label">Control Photo Id:</label>
+                <el-input v-model="WaterfallStore.currentClickData!.cfg.control_photo_id"/>
+              </el-form-item> 
+             </el-col>
             <el-col :span="12">
+
               <el-form-item prop="size" class="label_infoblock">
                 <label class="el-form-item__label width">Width:</label>
-                {{ WaterfallStore.currentClickData!.cfg.width }}</el-form-item
-              >
+                <el-input v-model="WaterfallStore.currentClickData!.cfg.width"/>
+              </el-form-item>
+
               <el-form-item class="label_infoblock">
-                <label class="el-form-item__label width">Height:</label
-                >{{ WaterfallStore.currentClickData!.cfg.height }}</el-form-item
-              >
+                <label class="el-form-item__label width">Height:</label>
+                <el-input v-model="WaterfallStore.currentClickData!.cfg.height"/>
+              </el-form-item>
 
               <el-form-item required class="label_infoblock">
-                <label class="el-form-item__label width">Model:</label
-                >{{ WaterfallStore.currentClickData!.cfg.model }}</el-form-item
-              >
+                <label class="el-form-item__label width">Model:</label>                
+                <el-input v-model="WaterfallStore.currentClickData!.cfg.model"/>
+              </el-form-item>
+              
             </el-col>
           </el-row>
-
-          <el-form-item
-            v-if="
-                  WaterfallStore.currentClickData!.cfg.strength !== undefined
-                "
-            class="label_infoblock"
-            ><label class="el-form-item__label width2">Strength:</label
-            >{{ WaterfallStore.currentClickData!.cfg.strength }}</el-form-item
-          >
-          <el-form-item
-            v-if="
-                  WaterfallStore.currentClickData!.cfg.control_preprocess !==
-                  undefined
-                "
-            class="label_infoblock"
-            ><label class="el-form-item__label">Control Preprocess:</label
-            >{{
-              WaterfallStore.currentClickData!.cfg.control_preprocess
-            }}</el-form-item
-          >
-          <el-form-item
-            v-if="
-                  WaterfallStore.currentClickData!.cfg.control_process !==
-                  undefined
-                "
-            class="label_infoblock"
-          >
-            <label class="el-form-item__label">Control Process:</label
-            >{{
-              WaterfallStore.currentClickData!.cfg.control_process
-            }}</el-form-item
-          >
-
           <el-form-item class="label_infoblock">
             <label class="el-form-item__label width">Seed:</label>
-            <el-input-number
+            <el-input
               v-model.number="WaterfallStore.currentClickData!.cfg.seed"
               :controls="false"
               :min="0"
@@ -142,6 +107,41 @@ const WaterfallStore = useWaterfallStore();
               :step="1"
               step-strictly
             />
+          </el-form-item>
+          <el-form-item
+                v-if="
+                  WaterfallStore.currentClickData!.cfg.pre_photo_id !== undefined
+                "
+                class="label_infoblock">
+                <label class="el-form-item__label hei">Pre Photo Id:</label>
+                <el-input v-model="WaterfallStore.currentClickData!.cfg.pre_photo_id"/>
+              </el-form-item>
+          <el-form-item
+            v-if="
+                  WaterfallStore.currentClickData!.cfg.strength !== undefined
+                "
+            class="label_infoblock">
+            <label class="el-form-item__label width2">Strength:</label>
+            <el-input v-model="WaterfallStore.currentClickData!.cfg.strength"/>
+          </el-form-item
+          >
+          <el-form-item
+            v-if="
+                  WaterfallStore.currentClickData!.cfg.control_preprocess !==
+                  undefined
+                "
+            class="label_infoblock">
+            <label class="el-form-item__label">Control Preprocess:</label>
+            <el-input v-model="WaterfallStore.currentClickData!.cfg.control_preprocess"/>
+          </el-form-item>
+          <el-form-item
+            v-if="
+                  WaterfallStore.currentClickData!.cfg.control_process !==
+                  undefined
+                "
+            class="label_infoblock">
+            <label class="el-form-item__label">Control Process:</label>
+            <el-input v-model="WaterfallStore.currentClickData!.cfg.control_process"/>
           </el-form-item>
         </el-form>
       </el-col>
@@ -163,33 +163,56 @@ const WaterfallStore = useWaterfallStore();
 
 <style scoped>
 .el-form-item__label {
-  width: 100px;
+  width: 120px;
 }
 
 .dialog_body {
   margin: -5px 0 -30px 0px;
 }
 
+.el-input{
+  margin: 0 5px 0 0;
+}
+
+
+@media (max-width: 770px) {
+  .el-form-item__label {
+    width: 94px; 
+  }
+}
+
 @media (max-width: 425px) {
   .hei {
     line-height: 15px;
+    width:70px !important;
   }
+
+  .el-col-12 {
+    max-width: 100%;
+  }
+
   .width {
-    width: 42px !important;
+    width: 50px !important;
   }
   .width2 {
     width: 62px !important;
-  }
-  .el-form-item__label {
-    width: 120px;
   }
   .dialog_body {
     margin: -30px -15px -30px -15px !important;
   }
   .el-form-item__label {
-    width: 35px;
+    width: 50px;
     display: flex;
     justify-content: flex-start;
+  }
+
+  .el-button{
+    font-size: 13px;
+  }
+
+  .el-row{
+    display: flex;
+    flex-direction: column;
   }
 }
 </style>
