@@ -287,9 +287,7 @@ async function getDraw() {
       </el-form-item>
       <PrePhoto></PrePhoto>
       <ControlPhoto></ControlPhoto>
-      <ExtraModelSelecter
-        class="config_extra-model-selecter"
-      ></ExtraModelSelecter>
+      <ExtraModelSelecter></ExtraModelSelecter>
       <el-form-item class="button_config" style="margin-left: 120px">
         <el-button type="primary" @click="Create">Create</el-button>
       </el-form-item>
