@@ -145,12 +145,27 @@ async function getDraw() {
 <template>
   <div class="config_position_progress">
     <div class="demo-progress">
-      <el-progress v-show="ConfigStore.creatStatus" :text-inside="true" :stroke-width="24" :class="{
-        status: code,
-      }" :style="{ 'margin-bottom': '20px' }" :percentage="ConfigStore.creatStatus * 100" />
+      <el-progress
+        v-show="ConfigStore.creatStatus"
+        :text-inside="true"
+        :stroke-width="24"
+        :class="{
+          status: code,
+        }"
+        :style="{ 'margin-bottom': '20px' }"
+        :percentage="ConfigStore.creatStatus * 100"
+      />
     </div>
-    <el-form ref="formRef" :model="ConfigStore.config" :rules="rules" scroll-to-error hide-required-asterisk status-icon
-      v-loading="ConfigStore.loading" @submit.prevent>
+    <el-form
+      ref="formRef"
+      :model="ConfigStore.config"
+      :rules="rules"
+      scroll-to-error
+      hide-required-asterisk
+      status-icon
+      v-loading="ConfigStore.loading"
+      @submit.prevent
+    >
       <el-form-item prop="tag">
         <label class="el-form-item__label">Tag</label>
         <el-input v-model="ConfigStore.config.tag" type="textarea" />
@@ -161,50 +176,114 @@ async function getDraw() {
       </el-form-item>
       <el-form-item required>
         <label class="el-form-item__label">Mode</label>
-        <el-select @focus="getModes" :loading="modesLoading" v-model="ConfigStore.config.mode" class="m-2"
-          placeholder="Mode" size="large">
-          <el-option v-for="(item, index) in ConfigStore.modes" :key="index" :value="item" />
+        <el-select
+          @focus="getModes"
+          :loading="modesLoading"
+          v-model="ConfigStore.config.mode"
+          class="m-2"
+          placeholder="Mode"
+          size="large"
+        >
+          <el-option
+            v-for="(item, index) in ConfigStore.modes"
+            :key="index"
+            :value="item"
+          />
         </el-select>
       </el-form-item>
       <el-form-item required>
         <label class="el-form-item__label">Model</label>
-        <el-select @focus="getModels" :loading="modelsLoading" v-model="ConfigStore.config.model" class="m-2"
-          placeholder="Model" size="large">
-          <el-option v-for="(item, index) in ConfigStore.models" :key="index" :value="item" />
+        <el-select
+          @focus="getModels"
+          :loading="modelsLoading"
+          v-model="ConfigStore.config.model"
+          class="m-2"
+          placeholder="Model"
+          size="large"
+        >
+          <el-option
+            v-for="(item, index) in ConfigStore.models"
+            :key="index"
+            :value="item"
+          />
         </el-select>
       </el-form-item>
       <el-form-item>
         <label class="el-form-item__label">Num</label>
-        <el-input-number v-model.number="ConfigStore.config.num" :min="1" :max="3" :step="1" step-strictly />
+        <el-input-number
+          v-model.number="ConfigStore.config.num"
+          :min="1"
+          :max="3"
+          :step="1"
+          step-strictly
+        />
       </el-form-item>
       <el-form-item>
         <label class="el-form-item__label">Steps</label>
-        <el-input-number v-model.number="ConfigStore.config.steps" :min="1" :max="50" :step="1" step-strictly />
+        <el-input-number
+          v-model.number="ConfigStore.config.steps"
+          :min="1"
+          :max="50"
+          :step="1"
+          step-strictly
+        />
       </el-form-item>
       <el-form-item>
         <label class="el-form-item__label">Scale</label>
-        <el-input-number v-model.number="ConfigStore.config.scale" :min="1" :max="30" :step="1" step-strictly />
+        <el-input-number
+          v-model.number="ConfigStore.config.scale"
+          :min="1"
+          :max="30"
+          :step="1"
+          step-strictly
+        />
       </el-form-item>
       <el-form-item class="config_radio-fix-size">
         <label class="el-form-item__label">Lock Ratio</label>
-        <el-switch v-model="ConfigStore.lockRatio" :style="{
-          'margin-right': '20px',
-        }" />
-        <el-input-number v-show="ConfigStore.lockRatio" v-model.number="ratio" :precision="2" :step="0.1" />
+        <el-switch
+          v-model="ConfigStore.lockRatio"
+          :style="{
+            'margin-right': '20px',
+          }"
+        />
+        <el-input-number
+          v-show="ConfigStore.lockRatio"
+          v-model.number="ratio"
+          :precision="2"
+          :step="0.1"
+        />
       </el-form-item>
       <el-form-item prop="size">
         <label class="el-form-item__label">Width</label>
-        <el-slider v-model.number="ConfigStore.config.width" :step="8" :min="64" :max="2048" show-input />
+        <el-slider
+          v-model.number="ConfigStore.config.width"
+          :step="8"
+          :min="64"
+          :max="2048"
+          show-input
+        />
       </el-form-item>
       <el-form-item :prop="ConfigStore.lockRatio ? '' : 'size'">
         <label class="el-form-item__label">Height</label>
-        <el-slider v-model.number="ConfigStore.config.height" :step="8" :min="64" :max="2048" show-input
-          :disabled="ConfigStore.lockRatio" />
+        <el-slider
+          v-model.number="ConfigStore.config.height"
+          :step="8"
+          :min="64"
+          :max="2048"
+          show-input
+          :disabled="ConfigStore.lockRatio"
+        />
       </el-form-item>
       <el-form-item>
         <label class="el-form-item__label">Seed</label>
-        <el-input-number v-model.number="ConfigStore.config.seed" :controls="false" :min="0" :max="4294967295" :step="1"
-          step-strictly />
+        <el-input-number
+          v-model.number="ConfigStore.config.seed"
+          :controls="false"
+          :min="0"
+          :max="4294967295"
+          :step="1"
+          step-strictly
+        />
       </el-form-item>
       <PrePhoto></PrePhoto>
       <ControlPhoto></ControlPhoto>

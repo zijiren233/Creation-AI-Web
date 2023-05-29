@@ -40,9 +40,19 @@ const prePhoto = computed(() => {
 <template>
   <el-form-item>
     <label class="el-form-item__label">Pre Photo</label>
-    <el-upload ref="upload" class="upload-demo" accept="image/png,image/jpg,image/jpeg" action="#" drag
-      :auto-upload="false" list-type="picture-card" v-model:file-list="ConfigStore.prePhoto_UploadUserFile" :limit="1"
-      :on-exceed="handleExceed" :on-change="handleChange">
+    <el-upload
+      ref="upload"
+      class="upload-demo"
+      accept="image/png,image/jpg,image/jpeg"
+      action="#"
+      drag
+      :auto-upload="false"
+      list-type="picture-card"
+      v-model:file-list="ConfigStore.prePhoto_UploadUserFile"
+      :limit="1"
+      :on-exceed="handleExceed"
+      :on-change="handleChange"
+    >
       <el-icon :size="30" class="el-icon--upload"><upload-filled /></el-icon>
       <div class="el-upload__text">
         <em>click to upload</em>
@@ -56,10 +66,16 @@ const prePhoto = computed(() => {
         <div>
           <img class="el-upload-list__item-thumbnail" :src="prePhoto" alt="" />
           <span class="el-upload-list__item-actions">
-            <span class="el-upload-list__item-preview" @click="dialogVisible = true">
+            <span
+              class="el-upload-list__item-preview"
+              @click="dialogVisible = true"
+            >
               <el-icon><zoom-in /></el-icon>
             </span>
-            <span class="el-upload-list__item-delete" @click="handleRemove(file)">
+            <span
+              class="el-upload-list__item-delete"
+              @click="handleRemove(file)"
+            >
               <el-icon>
                 <Delete />
               </el-icon>
@@ -71,11 +87,22 @@ const prePhoto = computed(() => {
   </el-form-item>
   <el-form-item v-show="ConfigStore.config.pre_photo! !== ''">
     <label class="el-form-item__label">Strength</label>
-    <el-input-number v-model.number="ConfigStore.config.strength" :controls="true" :min="0" :max="1" :step="0.05"
-      step-strictly />
+    <el-input-number
+      v-model.number="ConfigStore.config.strength"
+      :controls="true"
+      :min="0"
+      :max="1"
+      :step="0.05"
+      step-strictly
+    />
   </el-form-item>
   <el-dialog v-model="dialogVisible" align-center width="70%" append-to-body>
-    <el-image fit="contain" w-full :src="prePhoto" alt="Preview Pre Photo"></el-image>
+    <el-image
+      fit="contain"
+      w-full
+      :src="prePhoto"
+      alt="Preview Pre Photo"
+    ></el-image>
   </el-dialog>
 </template>
 

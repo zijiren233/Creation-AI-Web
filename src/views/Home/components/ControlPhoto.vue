@@ -65,9 +65,19 @@ const controlPhoto = computed(() => {
 <template>
   <el-form-item>
     <label class="el-form-item__label">Control Photo</label>
-    <el-upload ref="upload" class="upload-demo" accept="image/png,image/jpg,image/jpeg" action="#" drag
-      :auto-upload="false" list-type="picture-card" v-model:file-list="ConfigStore.controlPhoto_UploadUserFile" :limit="1"
-      :on-exceed="handleExceed" :on-change="handleChange">
+    <el-upload
+      ref="upload"
+      class="upload-demo"
+      accept="image/png,image/jpg,image/jpeg"
+      action="#"
+      drag
+      :auto-upload="false"
+      list-type="picture-card"
+      v-model:file-list="ConfigStore.controlPhoto_UploadUserFile"
+      :limit="1"
+      :on-exceed="handleExceed"
+      :on-change="handleChange"
+    >
       <el-icon :size="30" class="el-icon--upload"><upload-filled /></el-icon>
       <div class="el-upload__text">
         <em>click to upload</em>
@@ -79,12 +89,22 @@ const controlPhoto = computed(() => {
       </template>
       <template #file="{ file }">
         <div>
-          <img class="el-upload-list__item-thumbnail" :src="controlPhoto" alt="" />
+          <img
+            class="el-upload-list__item-thumbnail"
+            :src="controlPhoto"
+            alt=""
+          />
           <span class="el-upload-list__item-actions">
-            <span class="el-upload-list__item-preview" @click="dialogVisible = true">
+            <span
+              class="el-upload-list__item-preview"
+              @click="dialogVisible = true"
+            >
               <el-icon><zoom-in /></el-icon>
             </span>
-            <span class="el-upload-list__item-delete" @click="handleRemove(file)">
+            <span
+              class="el-upload-list__item-delete"
+              @click="handleRemove(file)"
+            >
               <el-icon>
                 <Delete />
               </el-icon>
@@ -96,20 +116,45 @@ const controlPhoto = computed(() => {
   </el-form-item>
   <el-form-item required v-show="ConfigStore.config.control_photo! !== ''">
     <label class="el-form-item__label">Pre Process</label>
-    <el-select @focus="getPreProcess" :loading="preProcessLoading" v-model="ConfigStore.config.control_preprocess"
-      class="m-2" placeholder="Pre Process" size="large">
-      <el-option v-for="(item, index) in ConfigStore.PreProcess" :key="index" :value="item" />
+    <el-select
+      @focus="getPreProcess"
+      :loading="preProcessLoading"
+      v-model="ConfigStore.config.control_preprocess"
+      class="m-2"
+      placeholder="Pre Process"
+      size="large"
+    >
+      <el-option
+        v-for="(item, index) in ConfigStore.PreProcess"
+        :key="index"
+        :value="item"
+      />
     </el-select>
   </el-form-item>
   <el-form-item required v-show="ConfigStore.config.control_photo! !== ''">
     <label class="el-form-item__label">Process</label>
-    <el-select @focus="getProcess" :loading="processLoading" v-model="ConfigStore.config.control_process" class="m-2"
-      placeholder="Process" size="large">
-      <el-option v-for="(item, index) in ConfigStore.Process" :key="index" :value="item" />
+    <el-select
+      @focus="getProcess"
+      :loading="processLoading"
+      v-model="ConfigStore.config.control_process"
+      class="m-2"
+      placeholder="Process"
+      size="large"
+    >
+      <el-option
+        v-for="(item, index) in ConfigStore.Process"
+        :key="index"
+        :value="item"
+      />
     </el-select>
   </el-form-item>
   <el-dialog v-model="dialogVisible" align-center width="70%" append-to-body>
-    <el-image fit="contain" w-full :src="controlPhoto" alt="Preview Control Photo"></el-image>
+    <el-image
+      fit="contain"
+      w-full
+      :src="controlPhoto"
+      alt="Preview Control Photo"
+    ></el-image>
   </el-dialog>
 </template>
 

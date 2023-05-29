@@ -37,14 +37,29 @@ async function select(group: string) {
   </el-form-item>
   <el-form-item v-show="showExtraModelGroups" class="extra_models_content">
     <label class="el-form-item__label"></label>
-    <el-select v-model="currentGroup" class="select" placeholder="Select" size="large" :loading="groupLoading"
-      @focus="getExtraModelGroup">
-      <el-option v-for="item in ConfigStore.extraModelGroups" :key="item" :value="item" @click="select(item)" />
+    <el-select
+      v-model="currentGroup"
+      class="select"
+      placeholder="Select"
+      size="large"
+      :loading="groupLoading"
+      @focus="getExtraModelGroup"
+    >
+      <el-option
+        v-for="item in ConfigStore.extraModelGroups"
+        :key="item"
+        :value="item"
+        @click="select(item)"
+      />
     </el-select>
     <el-scrollbar height="55vh" v-if="!itemLoading">
       <div class="scrollbar">
-        <el-card class="box-card" :body-style="{ padding: '0px' }"
-          v-for="item in ConfigStore.extraModelsWithGroup[currentGroup]" :key="item.Name">
+        <el-card
+          class="box-card"
+          :body-style="{ padding: '0px' }"
+          v-for="item in ConfigStore.extraModelsWithGroup[currentGroup]"
+          :key="item.Name"
+        >
           <img :src="item.Preview" style="width: 100%" />
           <div style="padding: 14px" class="text_name_exm">{{ item.Name }}</div>
         </el-card>
