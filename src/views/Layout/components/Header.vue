@@ -67,6 +67,7 @@ const signup = () => {
     padding: 0 6px;
     font-size: 13px;
   }
+
   .el-sub-menu__title {
     padding: 0 10px;
     padding-right: calc(30px + 7px);

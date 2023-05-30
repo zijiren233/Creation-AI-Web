@@ -61,7 +61,7 @@ async function select(group: string) {
           :key="item.Name"
         >
           <img :src="item.Preview" style="width: 100%" />
-          <div style="padding: 14px">{{ item.Name }}</div>
+          <div style="padding: 14px" class="text_name_exm">{{ item.Name }}</div>
         </el-card>
       </div>
     </el-scrollbar>
@@ -74,23 +74,34 @@ async function select(group: string) {
   display: flex;
   flex-wrap: wrap;
 }
+
 .el-form-item__label {
   width: 120px;
+  line-height: 12px;
 }
+
+.text_name_exm {
+  text-align: center;
+  line-height: 20px;
+  padding: 2px 10px 7px 10px !important;
+}
+
 @media (max-width: 425px) {
   .scrollbar {
-    margin-left: 70px;
+    margin-left: 0px;
   }
+
   .el-form-item__label {
-    width: 70px;
+    width: 64px;
     display: flex;
     justify-content: flex-start;
   }
 }
+
 .box-card {
-  width: 18%;
+  width: 17%;
   display: block;
-  margin: 10px;
+  margin: 5px;
 }
 
 .a {

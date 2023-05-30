@@ -317,12 +317,13 @@ async function getDraw() {
 
 @media (max-width: 425px) {
   .el-form-item__label {
-    width: 70px;
+    width: 64px;
     display: flex;
     justify-content: flex-start;
   }
+
   .button_config {
-    margin-left: 70px !important;
+    margin-left: 64px !important;
   }
 }
 

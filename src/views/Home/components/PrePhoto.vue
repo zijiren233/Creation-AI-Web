@@ -76,7 +76,9 @@ const prePhoto = computed(() => {
               class="el-upload-list__item-delete"
               @click="handleRemove(file)"
             >
-              <el-icon><Delete /></el-icon>
+              <el-icon>
+                <Delete />
+              </el-icon>
             </span>
           </span>
         </div>
@@ -108,9 +110,10 @@ const prePhoto = computed(() => {
 .el-form-item__label {
   width: 120px;
 }
+
 @media (max-width: 425px) {
   .el-form-item__label {
-    width: 70px;
+    width: 64px;
     display: flex;
     justify-content: flex-start;
   }

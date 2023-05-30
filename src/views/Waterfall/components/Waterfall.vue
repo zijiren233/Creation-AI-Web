@@ -116,19 +116,23 @@ function openImgModal(data: any) {
   box-sizing: border-box;
   vertical-align: top;
 }
+
 .demo-image .block:last-child {
   border-right: none;
 }
+
 .demo-image .demonstration {
   display: block;
   color: var(--el-text-color-secondary);
   font-size: 14px;
   margin-bottom: 20px;
 }
+
 .img {
   width: 230px;
   transition: all 0.4s;
 }
+
 .img:hover {
   box-shadow: var(--el-box-shadow-light);
 }
@@ -141,6 +145,7 @@ function openImgModal(data: any) {
   .img {
     width: calc(100vw - 65vw);
   }
+
   .demo-image .block {
     padding: 8px;
   }
