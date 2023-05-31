@@ -7,9 +7,9 @@ import ShowConfig from "@/views/Waterfall/components/ShowConfig.vue";
 import { useWaterfallStore } from "@/stores/waterfall";
 
 const WaterfallStore = useWaterfallStore();
-const route = router.currentRoute.value;
-WaterfallStore.input = route.query.tag?.toString() || "";
-WaterfallStore.currentPage = stringToNumber(route.query.page?.toString());
+const route = router.currentRoute;
+WaterfallStore.input = route.value.query.tag?.toString() || "";
+WaterfallStore.currentPage = stringToNumber(route.value.query.page?.toString());
 
 onMounted(() => {
   WaterfallStore.load();
@@ -26,7 +26,7 @@ function changePage() {
   router.push({
     path: "/waterfall",
     query: {
-      tag: route.query.tag?.toString()!,
+      tag: route.value.query.tag?.toString()!,
       page: WaterfallStore.currentPage,
     },
   });
