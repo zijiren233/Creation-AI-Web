@@ -49,10 +49,15 @@ async function select(group: string) {
         @click="select(item)"
       />
     </el-select>
-    <el-scrollbar height="55vh" v-if="!itemLoading">
+  </el-form-item>
+  <el-form-item>
+    <el-scrollbar
+      height="55vh"
+      style="margin-left: 120px; width: 80%; display: 'flex'"
+      v-if="!itemLoading"
+    >
       <el-card
-        class="box-card"
-        :body-style="{ padding: '0px' }"
+        style="width: 200px; display: 'flex'"
         v-for="item in ConfigStore.extraModelsWithGroup[currentGroup]"
         :key="item.Name"
       >
@@ -63,40 +68,4 @@ async function select(group: string) {
   </el-form-item>
 </template>
 
-<style scoped>
-:deep(.el-form-item__label) {
-  width: 120px;
-  line-height: 12px;
-}
-
-@media (max-width: 425px) {
-  :deep(.el-form-item__label) {
-    width: 64px;
-    display: flex;
-    justify-content: flex-start;
-  }
-}
-
-.box-card {
-  width: 17%;
-  display: block;
-  margin: 5px;
-}
-
-.a {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-@media (max-width: 1100px) {
-  .box-card {
-    width: 28%;
-  }
-}
-
-@media (max-width: 453px) {
-  .box-card {
-    width: 43%;
-  }
-}
-</style>
+<style scoped></style>
