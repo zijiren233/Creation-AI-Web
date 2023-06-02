@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Layout from "@/views/Layout/index.vue";
-import Home from "@/views/Home/index.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,7 +13,7 @@ const router = createRouter({
         {
           path: "",
           name: "home",
-          component: Home,
+          component: () => import("@/views/Home/index.vue"),
           meta: { title: "Creation AI - Home" },
         },
         {

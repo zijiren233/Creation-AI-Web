@@ -296,12 +296,21 @@ async function getDraw() {
 </template>
 
 <style scoped>
-.el-scrollbar__view {
-  width: 100px;
+:deep(textarea) {
+  min-height: 31px;
+  height: 110px;
 }
 
-.el-form-item__label {
+:deep(.el-scrollbar__view) {
+  width: 100px;
+}
+:deep(.el-form-item__label) {
   width: 120px;
+}
+
+:deep(.el-form-item__content) {
+  flex-wrap: nowrap;
+  align-items: flex-start;
 }
 
 .button_config {
@@ -309,14 +318,14 @@ async function getDraw() {
 }
 
 @media (max-width: 770px) {
-  .config_position_progress {
+  :deep(.config_position_progress) {
     display: flex;
     flex-direction: column-reverse;
   }
 }
 
 @media (max-width: 425px) {
-  .el-form-item__label {
+  :deep(.el-form-item__label) {
     width: 64px;
     display: flex;
     justify-content: flex-start;
@@ -328,7 +337,7 @@ async function getDraw() {
 }
 
 @media (max-width: 330px) {
-  .el-slider__input {
+  :deep(.el-slider__input) {
     flex-shrink: 0;
     width: 140px;
     margin: 0px 0 0 -25px;
