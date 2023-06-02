@@ -277,8 +277,10 @@ async function getDraw() {
       <PrePhoto></PrePhoto>
       <ControlPhoto></ControlPhoto>
       <ExtraModelSelecter></ExtraModelSelecter>
-      <el-form-item class="button_config" style="margin-left: 120px">
-        <el-button type="primary" @click="Create">Create</el-button>
+      <el-form-item>
+        <el-button style="margin-left: 120px" type="primary" @click="Create"
+          >Create</el-button
+        >
       </el-form-item>
     </el-form>
   </div>
@@ -302,12 +304,8 @@ async function getDraw() {
   align-items: flex-start;
 }
 
-.button_config {
-  margin-left: 0;
-}
-
 @media (max-width: 770px) {
-  :deep(.config_position_progress) {
+  .config_position_progress {
     display: flex;
     flex-direction: column-reverse;
   }

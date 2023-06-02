@@ -41,14 +41,21 @@ function Save() {
 <template>
   <div>
     <el-form :rules="rules" ref="formRef" :model="userAuth">
-      <el-form-item prop="username" style="max-width: 300px" label="Username">
+      <el-form-item
+        prop="username"
+        style="margin: 20px auto; max-width: 300px"
+        label="Username"
+      >
         <el-input
           v-model="userAuth.username"
           placeholder="Please input username"
           :style="{ 'max-width': '158px' }"
         />
       </el-form-item>
-      <el-form-item prop="password" style="max-width: 300px" label="Password"
+      <el-form-item
+        prop="password"
+        style="margin: 20px auto; max-width: 300px"
+        label="Password"
         ><el-input
           :style="{ 'max-width': '158px' }"
           v-model="userAuth.password"
@@ -58,7 +65,7 @@ function Save() {
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" class="login_button" @click="Save"
+        <el-button type="primary" style="margin: 0 auto" @click="Save"
           >Save</el-button
         >
       </el-form-item>
@@ -66,22 +73,4 @@ function Save() {
   </div>
 </template>
 
-<style scoped>
-:deep(form) {
-  margin-left: 0 auto 0 auto;
-}
-
-@media (max-width: 425px) {
-  :deep(.el-form-item__label) {
-    width: 64px;
-    display: flex;
-    justify-content: flex-start;
-  }
-}
-
-@media (max-width: 375px) {
-  :deep(.login_button) {
-    margin: 0 0 0 64px;
-  }
-}
-</style>
+<style scoped></style>
