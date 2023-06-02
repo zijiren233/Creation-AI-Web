@@ -63,8 +63,7 @@ const controlPhoto = computed(() => {
 </script>
 
 <template>
-  <el-form-item>
-    <label class="el-form-item__label">Control Photo</label>
+  <el-form-item label="Control Photo">
     <el-upload
       ref="upload"
       class="upload-demo"
@@ -114,8 +113,11 @@ const controlPhoto = computed(() => {
       </template>
     </el-upload>
   </el-form-item>
-  <el-form-item required v-show="ConfigStore.config.control_photo! !== ''">
-    <label class="el-form-item__label">Pre Process</label>
+  <el-form-item
+    label="Pre Process"
+    required
+    v-show="ConfigStore.config.control_photo! !== ''"
+  >
     <el-select
       @focus="getPreProcess"
       :loading="preProcessLoading"
@@ -131,8 +133,11 @@ const controlPhoto = computed(() => {
       />
     </el-select>
   </el-form-item>
-  <el-form-item required v-show="ConfigStore.config.control_photo! !== ''">
-    <label class="el-form-item__label">Process</label>
+  <el-form-item
+    label="Process"
+    required
+    v-show="ConfigStore.config.control_photo! !== ''"
+  >
     <el-select
       @focus="getProcess"
       :loading="processLoading"
@@ -159,12 +164,8 @@ const controlPhoto = computed(() => {
 </template>
 
 <style scoped>
-.el-form-item__label {
-  width: 120px;
-}
-
 @media (max-width: 425px) {
-  .el-form-item__label {
+  :deep(.el-form-item__label) {
     width: 64px;
     display: flex;
     justify-content: flex-start;

@@ -39,32 +39,40 @@ function Save() {
 </script>
 
 <template>
-  <el-form :rules="rules" ref="formRef" :model="userAuth">
-    <el-form-item prop="username" style="max-width: 300px">
-      <label class="el-form-item__label">Username</label>
-      <el-input v-model="userAuth.username" placeholder="Please input username" :style="{ 'max-width': '158px' }" />
-    </el-form-item>
-    <el-form-item prop="password" style="max-width: 300px"><label class="el-form-item__label">Password</label><el-input
-        :style="{ 'max-width': '158px' }" v-model="userAuth.password" type="password" placeholder="Please input password"
-        show-password />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" class="login_button" @click="Save">Save</el-button>
-    </el-form-item>
-  </el-form>
+  <div>
+    <el-form :rules="rules" ref="formRef" :model="userAuth">
+      <el-form-item prop="username" style="max-width: 300px" label="Username">
+        <el-input
+          v-model="userAuth.username"
+          placeholder="Please input username"
+          :style="{ 'max-width': '158px' }"
+        />
+      </el-form-item>
+      <el-form-item prop="password" style="max-width: 300px" label="Password"
+        ><el-input
+          :style="{ 'max-width': '158px' }"
+          v-model="userAuth.password"
+          type="password"
+          placeholder="Please input password"
+          show-password
+        />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" class="login_button" @click="Save"
+          >Save</el-button
+        >
+      </el-form-item>
+    </el-form>
+  </div>
 </template>
 
-<style>
-.el-form-item__label {
-  width: 120px;
-}
-
-.login_button {
-  margin: 0 0 0 120px;
+<style scoped>
+:deep(form) {
+  margin-left: 0 auto 0 auto;
 }
 
 @media (max-width: 425px) {
-  .el-form-item__label {
+  :deep(.el-form-item__label) {
     width: 64px;
     display: flex;
     justify-content: flex-start;
@@ -72,7 +80,7 @@ function Save() {
 }
 
 @media (max-width: 375px) {
-  .login_button {
+  :deep(.login_button) {
     margin: 0 0 0 64px;
   }
 }

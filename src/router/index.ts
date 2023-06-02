@@ -22,7 +22,7 @@ const router = createRouter({
           path: "login",
           name: "login",
           component: () => import("@/views/Login/index.vue"),
-          meta: { title: "Login" },
+          meta: { title: "Login", transition: "animate__fadeIn" },
         },
         {
           path: "waterfall",

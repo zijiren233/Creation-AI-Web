@@ -30,13 +30,10 @@ async function select(group: string) {
 </script>
 
 <template>
-  <el-form-item>
-    <label class="el-form-item__label">Extra Model</label>
-
+  <el-form-item label="Extra Model">
     <el-switch v-model="showExtraModelGroups"></el-switch>
   </el-form-item>
-  <el-form-item v-show="showExtraModelGroups" class="extra_models_content">
-    <label class="el-form-item__label"></label>
+  <el-form-item label="Extra Models" v-show="showExtraModelGroups">
     <el-select
       v-model="currentGroup"
       class="select"
@@ -53,45 +50,27 @@ async function select(group: string) {
       />
     </el-select>
     <el-scrollbar height="55vh" v-if="!itemLoading">
-      <div class="scrollbar">
-        <el-card
-          class="box-card"
-          :body-style="{ padding: '0px' }"
-          v-for="item in ConfigStore.extraModelsWithGroup[currentGroup]"
-          :key="item.Name"
-        >
-          <img :src="item.Preview" style="width: 100%" />
-          <div style="padding: 14px" class="text_name_exm">{{ item.Name }}</div>
-        </el-card>
-      </div>
+      <el-card
+        class="box-card"
+        :body-style="{ padding: '0px' }"
+        v-for="item in ConfigStore.extraModelsWithGroup[currentGroup]"
+        :key="item.Name"
+      >
+        <img :src="item.Preview" style="width: 100%" />
+        <div style="padding: 14px">{{ item.Name }}</div>
+      </el-card>
     </el-scrollbar>
   </el-form-item>
 </template>
 
 <style scoped>
-.scrollbar {
-  margin-left: 120px;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.el-form-item__label {
+:deep(.el-form-item__label) {
   width: 120px;
   line-height: 12px;
 }
 
-.text_name_exm {
-  text-align: center;
-  line-height: 20px;
-  padding: 2px 10px 7px 10px !important;
-}
-
 @media (max-width: 425px) {
-  .scrollbar {
-    margin-left: 0px;
-  }
-
-  .el-form-item__label {
+  :deep(.el-form-item__label) {
     width: 64px;
     display: flex;
     justify-content: flex-start;

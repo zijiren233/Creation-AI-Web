@@ -38,8 +38,7 @@ const prePhoto = computed(() => {
 </script>
 
 <template>
-  <el-form-item>
-    <label class="el-form-item__label">Pre Photo</label>
+  <el-form-item label="Pre Photo">
     <el-upload
       ref="upload"
       class="upload-demo"
@@ -85,8 +84,7 @@ const prePhoto = computed(() => {
       </template>
     </el-upload>
   </el-form-item>
-  <el-form-item v-show="ConfigStore.config.pre_photo! !== ''">
-    <label class="el-form-item__label">Strength</label>
+  <el-form-item label="Strength" v-show="ConfigStore.config.pre_photo! !== ''">
     <el-input-number
       v-model.number="ConfigStore.config.strength"
       :controls="true"
@@ -107,12 +105,8 @@ const prePhoto = computed(() => {
 </template>
 
 <style scoped>
-.el-form-item__label {
-  width: 120px;
-}
-
 @media (max-width: 425px) {
-  .el-form-item__label {
+  :deep(.el-form-item__label) {
     width: 64px;
     display: flex;
     justify-content: flex-start;

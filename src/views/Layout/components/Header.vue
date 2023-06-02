@@ -9,13 +9,7 @@ const signup = () => {
 </script>
 
 <template>
-  <el-menu
-    class="el-menu-demo"
-    mode="horizontal"
-    unique-opened
-    router
-    :ellipsis="false"
-  >
+  <el-menu mode="horizontal" unique-opened router :ellipsis="false">
     <el-menu-item index="/">Home</el-menu-item>
     <el-menu-item index="/waterfall">Waterfall</el-menu-item>
     <el-menu-item index="/docs">Docs</el-menu-item>
@@ -49,32 +43,36 @@ const signup = () => {
 </template>
 
 <style lang="scss">
+.flex-grow {
+  flex-grow: 1;
+  min-width: 5px;
+}
 @media (max-width: 375px) {
-  .el-menu-item {
+  :deep(.el-menu-item) {
     padding: 0 10px;
   }
 }
 
 @media (max-width: 330px) {
-  .el-slider__runway.show-input,
-  .config_radio-fix-size {
+  :deep(.el-slider__runway.show-input),
+  :deep(.config_radio-fix-size) {
     display: none;
   }
 }
 
 @media (max-width: 315px) {
-  .el-menu-item {
+  :deep(.el-menu-item) {
     padding: 0 6px;
     font-size: 13px;
   }
 
-  .el-sub-menu__title {
+  :deep(.el-sub-menu__title) {
     padding: 0 10px;
     padding-right: calc(30px + 7px);
   }
 }
 
-.flex-grow {
+:deep(.flex-grow) {
   flex-grow: 1;
 }
 </style>

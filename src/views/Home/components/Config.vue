@@ -166,16 +166,13 @@ async function getDraw() {
       v-loading="ConfigStore.loading"
       @submit.prevent
     >
-      <el-form-item prop="tag">
-        <label class="el-form-item__label">Tag</label>
+      <el-form-item prop="tag" label="Tag">
         <el-input v-model="ConfigStore.config.tag" type="textarea" />
       </el-form-item>
-      <el-form-item>
-        <label class="el-form-item__label">Uc</label>
+      <el-form-item label="Uc">
         <el-input v-model="ConfigStore.config.uc" type="textarea" />
       </el-form-item>
-      <el-form-item required>
-        <label class="el-form-item__label">Mode</label>
+      <el-form-item required label="Mode">
         <el-select
           @focus="getModes"
           :loading="modesLoading"
@@ -191,8 +188,7 @@ async function getDraw() {
           />
         </el-select>
       </el-form-item>
-      <el-form-item required>
-        <label class="el-form-item__label">Model</label>
+      <el-form-item required label="Model">
         <el-select
           @focus="getModels"
           :loading="modelsLoading"
@@ -208,8 +204,7 @@ async function getDraw() {
           />
         </el-select>
       </el-form-item>
-      <el-form-item>
-        <label class="el-form-item__label">Num</label>
+      <el-form-item label="Num">
         <el-input-number
           v-model.number="ConfigStore.config.num"
           :min="1"
@@ -218,8 +213,7 @@ async function getDraw() {
           step-strictly
         />
       </el-form-item>
-      <el-form-item>
-        <label class="el-form-item__label">Steps</label>
+      <el-form-item label="Steps">
         <el-input-number
           v-model.number="ConfigStore.config.steps"
           :min="1"
@@ -228,8 +222,7 @@ async function getDraw() {
           step-strictly
         />
       </el-form-item>
-      <el-form-item>
-        <label class="el-form-item__label">Scale</label>
+      <el-form-item label="Scale">
         <el-input-number
           v-model.number="ConfigStore.config.scale"
           :min="1"
@@ -238,8 +231,7 @@ async function getDraw() {
           step-strictly
         />
       </el-form-item>
-      <el-form-item class="config_radio-fix-size">
-        <label class="el-form-item__label">Lock Ratio</label>
+      <el-form-item class="config_radio-fix-size" label="Lock Ratio">
         <el-switch
           v-model="ConfigStore.lockRatio"
           :style="{
@@ -253,8 +245,7 @@ async function getDraw() {
           :step="0.1"
         />
       </el-form-item>
-      <el-form-item prop="size">
-        <label class="el-form-item__label">Width</label>
+      <el-form-item prop="size" label="Width">
         <el-slider
           v-model.number="ConfigStore.config.width"
           :step="8"
@@ -263,8 +254,7 @@ async function getDraw() {
           show-input
         />
       </el-form-item>
-      <el-form-item :prop="ConfigStore.lockRatio ? '' : 'size'">
-        <label class="el-form-item__label">Height</label>
+      <el-form-item :prop="ConfigStore.lockRatio ? '' : 'size'" label="Height">
         <el-slider
           v-model.number="ConfigStore.config.height"
           :step="8"
@@ -274,8 +264,7 @@ async function getDraw() {
           :disabled="ConfigStore.lockRatio"
         />
       </el-form-item>
-      <el-form-item>
-        <label class="el-form-item__label">Seed</label>
+      <el-form-item label="Seed">
         <el-input-number
           v-model.number="ConfigStore.config.seed"
           :controls="false"

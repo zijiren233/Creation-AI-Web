@@ -8,6 +8,9 @@ dependencies:
   '@element-plus/icons-vue':
     specifier: ^2.1.0
     version: registry.npmjs.org/@element-plus/icons-vue@2.1.0(vue@3.3.4)
+  animate.css:
+    specifier: ^4.1.1
+    version: registry.npmjs.org/animate.css@4.1.1
   axios:
     specifier: ^1.4.0
     version: registry.npmjs.org/axios@1.4.0
@@ -1682,6 +1685,12 @@ packages:
       json-schema-traverse: registry.npmjs.org/json-schema-traverse@0.4.1
       uri-js: registry.npmjs.org/uri-js@4.4.1
     dev: true
+
+  registry.npmjs.org/animate.css@4.1.1:
+    resolution: {integrity: sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==, registry: https://npmreg.proxy.ustclug.org/, tarball: https://registry.npmjs.org/animate.css/-/animate.css-4.1.1.tgz}
+    name: animate.css
+    version: 4.1.1
+    dev: false
 
   registry.npmjs.org/ansi-regex@2.1.1:
     resolution: {integrity: sha512-TIGnTpdo+E3+pCyAluZvtED5p5wCqLdezCyhPZzKPcxvFplEt4i+W7OONCKgeZFT3+y5NZZfOOS/Bdcanm1MYA==, registry: https://npmreg.proxy.ustclug.org/, tarball: https://registry.npmjs.org/ansi-regex/-/ansi-regex-2.1.1.tgz}
