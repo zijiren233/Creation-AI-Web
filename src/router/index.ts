@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Layout from "@/views/Layout/index.vue";
+import { start, close } from "@/utile/nprogress";
+
+const Base_Title = "Creation AI";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,31 +11,30 @@ const router = createRouter({
       path: "/",
       name: "index",
       component: Layout,
-      meta: { title: "Creation AI" },
       children: [
         {
           path: "",
           name: "home",
           component: () => import("@/views/Home/index.vue"),
-          meta: { title: "Creation AI - Home" },
+          meta: { title: "Home" },
         },
         {
           path: "login",
           name: "login",
           component: () => import("@/views/Login/index.vue"),
-          meta: { title: "Creation AI - Login" },
+          meta: { title: "Login" },
         },
         {
           path: "waterfall",
           name: "waterfall",
           component: () => import("@/views/Waterfall/index.vue"),
-          meta: { title: "Creation AI - Waterfall" },
+          meta: { title: "Waterfall" },
         },
         {
           path: "docs",
           name: "docs",
           component: () => import("@/views/Docs/index.vue"),
-          meta: { title: "Creation AI - Docs" },
+          meta: { title: "Docs" },
         },
       ],
     },
@@ -45,8 +47,13 @@ const router = createRouter({
 });
 
 router.beforeEach((to: any, from: any, next) => {
-  window.document.title = to.meta.title;
+  start();
+  window.document.title = Base_Title + " - " + to.meta.title;
   next();
+});
+
+router.afterEach(() => {
+  close();
 });
 
 export default router;
