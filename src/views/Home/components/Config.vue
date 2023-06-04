@@ -181,11 +181,7 @@ async function getDraw() {
           placeholder="Mode"
           size="large"
         >
-          <el-option
-            v-for="(item, index) in ConfigStore.modes"
-            :key="index"
-            :value="item"
-          />
+          <el-option v-for="(item, index) in ConfigStore.modes" :key="index" :value="item" />
         </el-select>
       </el-form-item>
       <el-form-item required label="Model">
@@ -197,11 +193,7 @@ async function getDraw() {
           placeholder="Model"
           size="large"
         >
-          <el-option
-            v-for="(item, index) in ConfigStore.models"
-            :key="index"
-            :value="item"
-          />
+          <el-option v-for="(item, index) in ConfigStore.models" :key="index" :value="item" />
         </el-select>
       </el-form-item>
       <el-form-item label="Num">
@@ -278,9 +270,7 @@ async function getDraw() {
       <ControlPhoto></ControlPhoto>
       <ExtraModelSelecter></ExtraModelSelecter>
       <el-form-item>
-        <el-button style="margin-left: 120px" type="primary" @click="Create"
-          >Create</el-button
-        >
+        <el-button style="margin-left: 120px" type="primary" @click="Create">Create</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -292,9 +282,9 @@ async function getDraw() {
   height: 110px;
 }
 
-:deep(.el-scrollbar__view) {
+/* :deep(.el-scrollbar__view) {
   width: 100px;
-}
+} */
 :deep(.el-form-item__label) {
   width: 120px;
 }
