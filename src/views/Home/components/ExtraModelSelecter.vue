@@ -53,11 +53,11 @@ async function select(group: string) {
   <el-form-item>
     <el-scrollbar
       height="55vh"
-      style="margin-left: 120px; width: 80%; display: 'flex'"
+      style="margin-left: 120px; width: 80%"
       v-if="!itemLoading"
     >
       <el-card
-        style="width: 200px; display: 'flex'"
+        style="width: 200px"
         v-for="item in ConfigStore.extraModelsWithGroup[currentGroup]"
         :key="item.Name"
       >

@@ -20,5 +20,15 @@ export async function file2Base64(file: File): Promise<string> {
 }
 
 export function inItems<T>(items: T[], func: (item: T) => boolean): boolean {
-  return items.find((item) => func(item)) !== undefined;
+  const It: IterableIterator<T> = items[Symbol.iterator]();
+  let next: any = { done: false };
+  while (!next.done) {
+    next = It.next();
+    if (!next.done) {
+      if (func(next.value)) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
