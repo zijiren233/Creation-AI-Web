@@ -46,7 +46,7 @@ const WaterfallStore = useWaterfallStore();
           <el-row>
             <el-col :span="12">
               <el-form-item class="label_infoblock" label="Steps:">
-                ><el-input
+                <el-input
                   v-model="WaterfallStore.currentClickData!.cfg.steps"
                 />
               </el-form-item>
