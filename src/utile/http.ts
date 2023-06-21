@@ -5,7 +5,7 @@ import router from "@/router";
 import { Buffer } from "buffer";
 
 const httpInstanse = axios.create({
-  baseURL: "https://creation.pyhdxy.top/api",
+  baseURL: "/api",
   timeout: 60000,
 });
 

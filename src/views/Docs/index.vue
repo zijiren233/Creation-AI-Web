@@ -9,7 +9,7 @@ import { useNotificationStore } from "@/stores/notification";
 
 onMounted(() => {
   SwaggerUI({
-    url: "https://creation.pyhdxy.top/docs/doc.json",
+    url: "/docs/doc.json",
     dom_id: "#Docs",
     deepLinking: true,
     displayOperationId: true,
